@@ -6,4 +6,4 @@
 
 ## Setting of Microtonal Player
 
-It should work automatically, if not please let me know.
+It should work automatically in macOS and Windows, if not please let me know. In Linux, you need to install Cyclone and Else by Alexandre Porres.
