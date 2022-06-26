@@ -23,3 +23,10 @@ To work you need:
 
 
 In my compositional uses, it was possible to make large spacialitation works, synthesis, and bigdata audio processing.
+
+
+#### Using IEM Plugins and 3DC class
+
+![IEM Plugins and OM-pd](https://github.com/charlesneimog/OM-pd/blob/master/resources/Exemplo%20-%20Espacializacao.png)
+
+
