@@ -6,7 +6,10 @@
 
 ### Setting of Microtonal Player
 
-It should work automatically in macOS and Windows, if not please let me know. In Linux, you need to install Cyclone and Else by Alexandre Porres.
+You need to install Cyclone and Else by Alexandre Porres. Open PureData, go to `Help->Find External` then search for `else` and `cyclone`.
+
+![Install Else](https://github.com/charlesneimog/OM-pd/blob/master/resources/Using%20Deken.png)
+
 
 ### Linux PureData for Windows Users
 
