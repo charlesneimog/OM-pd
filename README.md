@@ -31,6 +31,8 @@ In my compositional uses, it was possible to make large spacialitation works, sy
 
 #### Using IEM Plugins and 3DC class
 
+The patch processes a lot of audio data using tridimensional coordenates of 3DC.
+
 ![IEM Plugins and OM-pd](https://github.com/charlesneimog/OM-pd/blob/master/resources/Exemplo%20-%20Espacializacao.png)
 
 
