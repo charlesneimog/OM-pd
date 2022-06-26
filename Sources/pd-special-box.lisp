@@ -11,11 +11,14 @@
    (selection :accessor selection :initarg :selection :initform 0)
    (output-mode :accessor output-mode :initarg :output-mode :initform :value)
    (font :accessor font :initarg :font :initform (om-def-font :font1b)))
-  (:documentation "An interface box to graphically select among different items in a list, using a drop-down menu.
-Use the optional inputs to set the list of items.
-Click with CMD (Mac) or Shift+Ctrl (Windows/Linux) to change the selected item.
-Returns the selected item, or the selected index depending on how this is set in the box properties."
+  (:documentation "An interface box to graphically select among different pd patches in PD Patches Folder (see externals).
+
+Click with CMD (Mac) or Shift+Ctrl (Windows/Linux) to change the selected patch."
    ))
+
+
+;; ==========================================
+(defmethod get-documentation ((self OMInterfaceBox)) (class-documentation (class-of self)))
 
 ;; ==========================================
 (defmethod special-box-p ((self (eql 'pd-list-patches))) t)

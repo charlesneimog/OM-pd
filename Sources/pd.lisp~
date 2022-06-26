@@ -399,10 +399,6 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 :icon 'pd
 :doc ""
 
-(if (not (find-library "OM-CKN"))
-    (progn (abort-eval) (print "pd-multithreading require the library OM-CKN")))
-    
-
 (let* (
       (patches-by-thread (ckn-loop-multi-prepare patch-list patches-by-thread))
       (thread (lambda (x) (loop :for patches :in x :collect (progn (oa::om-command-line (om::command-line patches)) (pd-outfile patches))))))
@@ -425,7 +421,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 
 
 
-              ))
+                  ))
 
 
 

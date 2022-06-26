@@ -1,0 +1,459 @@
+
+(:patch
+ (:name "IR-reverb")
+ (:doc "")
+ (:info
+  (:created "2022/05/01 14:12:59")
+  (:modified "2022/06/24 10:05:25")
+  (:by "om-sharp")
+  (:version 1.06))
+ (:window (:size (979 498)) (:position (482 198)))
+ (:grid nil)
+ (:lock t)
+ (:boxes
+  (:box
+   (:type :function)
+   (:reference tmpfile)
+   (:group-id nil)
+   (:name "tmpfile")
+   (:x 397)
+   (:y 183)
+   (:w 88)
+   (:h 31)
+   (:color nil)
+   (:border nil)
+   (:roundness nil)
+   (:text-font nil)
+   (:align nil)
+   (:icon :left)
+   (:lock nil)
+   (:lambda nil)
+   (:reactive nil)
+   (:inputs
+    (:input
+     (:type :standard)
+     (:name "PATH")
+     (:value "")
+     (:reactive nil)))
+   (:outputs (:output (:name "out") (:reactive nil)))
+   (:id 0))
+  (:box
+   (:type :value)
+   (:reference (:symbol "SIMPLE-TEXT-STRING" "LISPWORKS"))
+   (:group-id nil)
+   (:name "value box")
+   (:x 382)
+   (:y 142)
+   (:w 118)
+   (:h 31)
+   (:color
+    (:color-or-nil
+     (:color (:color 1.0S0 1.0S0 1.0S0 1.0))
+     (:t-or-nil t)))
+   (:border nil)
+   (:roundness nil)
+   (:text-font nil)
+   (:align nil)
+   (:lock nil)
+   (:reactive nil)
+   (:inputs)
+   (:outputs (:output (:name "value") (:reactive nil)))
+   (:value "out-test.wav")
+   (:id 1))
+  (:box
+   (:library "OM-pd")
+   (:type :function)
+   (:reference pd~)
+   (:group-id nil)
+   (:name "pd~")
+   (:x 236)
+   (:y 228)
+   (:w 500)
+   (:h 31)
+   (:color nil)
+   (:border nil)
+   (:roundness nil)
+   (:text-font nil)
+   (:align nil)
+   (:icon :left)
+   (:lock nil)
+   (:lambda nil)
+   (:reactive nil)
+   (:inputs
+    (:input
+     (:type :standard)
+     (:name "PATCH")
+     (:value nil)
+     (:reactive nil))
+    (:input
+     (:type :key)
+     (:name "sound-in")
+     (:value nil)
+     (:reactive nil))
+    (:input
+     (:type :key)
+     (:name "sound-out")
+     (:value nil)
+     (:reactive nil))
+    (:input (:type :key) (:name "var") (:value nil) (:reactive nil))
+    (:input (:type :key) (:name "gui") (:value nil) (:reactive nil))
+    (:input
+     (:type :key)
+     (:name "offline")
+     (:value nil)
+     (:reactive nil)))
+   (:outputs (:output (:name "out") (:reactive nil)))
+   (:id 2))
+  (:box
+   (:type :value)
+   (:reference symbol)
+   (:group-id nil)
+   (:name "value box")
+   (:x 581)
+   (:y 190)
+   (:w 39)
+   (:h 31)
+   (:color
+    (:color-or-nil
+     (:color (:color 1.0S0 1.0S0 1.0S0 1.0))
+     (:t-or-nil t)))
+   (:border nil)
+   (:roundness nil)
+   (:text-font nil)
+   (:align nil)
+   (:lock nil)
+   (:reactive nil)
+   (:inputs)
+   (:outputs (:output (:name "value") (:reactive nil)))
+   (:value t)
+   (:id 3))
+  (:box
+   (:type :value)
+   (:reference null)
+   (:group-id nil)
+   (:name "value box")
+   (:x 661)
+   (:y 190)
+   (:w 39)
+   (:h 31)
+   (:color
+    (:color-or-nil
+     (:color (:color 1.0S0 1.0S0 1.0S0 1.0))
+     (:t-or-nil t)))
+   (:border nil)
+   (:roundness nil)
+   (:text-font nil)
+   (:align nil)
+   (:lock nil)
+   (:reactive nil)
+   (:inputs)
+   (:outputs (:output (:name "value") (:reactive nil)))
+   (:value nil)
+   (:id 4))
+  (:box
+   (:type :interface)
+   (:reference pd-list-patches)
+   (:group-id nil)
+   (:name "pd-list-patches")
+   (:x 33)
+   (:y 75)
+   (:w 180)
+   (:h 30)
+   (:color nil)
+   (:border nil)
+   (:roundness nil)
+   (:font (:font (:face "Segoe UI") (:size 8) (:style :bold)))
+   (:output-mode :value)
+   (:inputs)
+   (:outputs (:output (:name "value") (:reactive nil)))
+   (:value
+    (:object
+     (:class pure-data)
+     (:slots
+      ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       (:pd-path
+        (:pathname
+         (:directory
+          (:absolute
+           "USERS"
+           "Neimog"
+           "ONEDRIVE_USP.BR"
+           "DOCUMENTS"
+           "OPENMUSIC"
+           "OM-LIBRARIES"
+           "OM-CKN"
+           "resources"
+           "Pd-Patches"))
+         (:device :unspecific)
+         (:host "C")
+         (:name "Record")
+         (:type "pd")))
+       (:command-line nil)
+       (:pd-outfile nil)))))
+   (:items
+    (:list
+     "SOL-player.pd"
+     "SOFA-Binaural.pd"
+     "Record.pd"
+     "OA.pd"
+     "Microtonal-Player.pd"
+     "IR-convolution.pd"
+     "IR-convolution-v2.pd"
+     "data-stream.pd"))
+   (:selection 2)
+   (:id 5))
+  (:box
+   (:library "OM-pd")
+   (:type :function)
+   (:reference pd-open-patches)
+   (:group-id nil)
+   (:name "pd-open-patches")
+   (:x 51)
+   (:y 269)
+   (:w 145)
+   (:h 31)
+   (:color nil)
+   (:border nil)
+   (:roundness nil)
+   (:text-font nil)
+   (:align nil)
+   (:icon :left)
+   (:lock nil)
+   (:lambda nil)
+   (:reactive nil)
+   (:inputs
+    (:input
+     (:type :standard)
+     (:name "PATCH")
+     (:value nil)
+     (:reactive nil)))
+   (:outputs (:output (:name "out") (:reactive nil)))
+   (:id 6))
+  (:box
+   (:type :function)
+   (:reference list)
+   (:group-id nil)
+   (:name "list")
+   (:x 514)
+   (:y 136)
+   (:w 67)
+   (:h 31)
+   (:color nil)
+   (:border nil)
+   (:roundness nil)
+   (:text-font nil)
+   (:align nil)
+   (:icon :left)
+   (:lock nil)
+   (:lambda nil)
+   (:reactive nil)
+   (:inputs
+    (:input
+     (:type :optional)
+     (:name "args")
+     (:value 1)
+     (:reactive nil)))
+   (:outputs (:output (:name "out") (:reactive nil)))
+   (:id 7))
+  (:box
+   (:type :function)
+   (:reference x-append)
+   (:group-id nil)
+   (:name "x-append")
+   (:x 506)
+   (:y 93)
+   (:w 95)
+   (:h 31)
+   (:color nil)
+   (:border nil)
+   (:roundness nil)
+   (:text-font nil)
+   (:align nil)
+   (:icon :left)
+   (:lock nil)
+   (:lambda nil)
+   (:reactive nil)
+   (:inputs
+    (:input
+     (:type :standard)
+     (:name "L1?")
+     (:value reverb_file)
+     (:reactive nil))
+    (:input
+     (:type :standard)
+     (:name "L2?")
+     (:value nil)
+     (:reactive nil)))
+   (:outputs (:output (:name "out") (:reactive nil)))
+   (:id 8))
+  (:box
+   (:type :value)
+   (:reference symbol)
+   (:group-id nil)
+   (:name "value box")
+   (:x 482)
+   (:y 15)
+   (:w 97)
+   (:h 31)
+   (:color
+    (:color-or-nil
+     (:color (:color 1.0S0 1.0S0 1.0S0 1.0))
+     (:t-or-nil t)))
+   (:border nil)
+   (:roundness nil)
+   (:text-font nil)
+   (:align nil)
+   (:lock nil)
+   (:reactive nil)
+   (:inputs)
+   (:outputs (:output (:name "value") (:reactive nil)))
+   (:value gain)
+   (:id 9))
+  (:box
+   (:type :object)
+   (:reference sound)
+   (:group-id nil)
+   (:name nil)
+   (:x 340)
+   (:y 283)
+   (:w 282)
+   (:h 81)
+   (:color nil)
+   (:border nil)
+   (:roundness nil)
+   (:text-font nil)
+   (:align :center)
+   (:display :mini-view)
+   (:showname nil)
+   (:show-markers t)
+   (:lock nil)
+   (:lambda nil)
+   (:reactive nil)
+   (:inputs
+    (:input
+     (:type :standard)
+     (:name "SELF")
+     (:value :choose-file)
+     (:reactive nil)))
+   (:outputs (:output (:name "SELF") (:reactive nil)))
+   (:window (:size nil) (:position nil))
+   (:edition-params)
+   (:value
+    (:object
+     (:class sound)
+     (:slots
+      ((:onset 0)
+       (:duration 1239.3651)
+       (:n-samples 54656)
+       (:n-channels 1)
+       (:sample-rate 44100)
+       (:smpl-type :float)
+       (:sample-size 16)))
+     (:add-slots
+      ((:markers nil)
+       (:gain 1.0)
+       (:access-from-file nil)
+       (:file-pathname
+        (:pathname
+         (:directory
+          (:relative
+           :back
+           :back
+           :back
+           :back
+           :back
+           :back
+           :back
+           "Documents"
+           "OM#"
+           "temp-files"))
+         (:device nil)
+         (:host "C")
+         (:name "out-test")
+         (:type "wav")))))))
+   (:id 10))
+  (:box
+   (:type :value)
+   (:reference fixnum)
+   (:group-id nil)
+   (:name "value box")
+   (:x 547)
+   (:y 58)
+   (:w 39)
+   (:h 31)
+   (:color
+    (:color-or-nil
+     (:color (:color 1.0S0 1.0S0 1.0S0 1.0))
+     (:t-or-nil t)))
+   (:border nil)
+   (:roundness nil)
+   (:text-font nil)
+   (:align nil)
+   (:lock nil)
+   (:reactive nil)
+   (:inputs)
+   (:outputs (:output (:name "value") (:reactive nil)))
+   (:value 1)
+   (:id 11))
+  (:box
+   (:type :object)
+   (:reference sound)
+   (:group-id nil)
+   (:name nil)
+   (:x 271)
+   (:y 77)
+   (:w 180)
+   (:h 60)
+   (:color nil)
+   (:border nil)
+   (:roundness nil)
+   (:text-font nil)
+   (:align :center)
+   (:display :mini-view)
+   (:showname nil)
+   (:show-markers t)
+   (:lock nil)
+   (:lambda nil)
+   (:reactive nil)
+   (:inputs
+    (:input
+     (:type :standard)
+     (:name "SELF")
+     (:value :choose-file)
+     (:reactive nil)))
+   (:outputs (:output (:name "SELF") (:reactive nil)))
+   (:window (:size nil) (:position nil))
+   (:edition-params)
+   (:value
+    (:object
+     (:class sound)
+     (:slots
+      ((:onset 0)
+       (:duration 0)
+       (:n-samples nil)
+       (:n-channels nil)
+       (:sample-rate nil)
+       (:smpl-type :float)
+       (:sample-size 16)))
+     (:add-slots
+      ((:markers nil)
+       (:gain 1.0)
+       (:access-from-file nil)
+       (:file-pathname nil)))))
+   (:id 12)))
+ (:connections
+  (:connection (:from (:box 0 :out 0)) (:to (:box 2 :in 2)))
+  (:connection (:from (:box 1 :out 0)) (:to (:box 0 :in 0)))
+  (:connection (:from (:box 2 :out 0)) (:to (:box 10 :in 0)))
+  (:connection (:from (:box 3 :out 0)) (:to (:box 2 :in 4)))
+  (:connection (:from (:box 4 :out 0)) (:to (:box 2 :in 5)))
+  (:connection (:from (:box 5 :out 0)) (:to (:box 2 :in 0)))
+  (:connection (:from (:box 5 :out 0)) (:to (:box 6 :in 0)))
+  (:connection
+   (:from (:box 7 :out 0))
+   (:to (:box 2 :in 3))
+   (:attributes (:color nil :style nil :modif (0 -12/79))))
+  (:connection (:from (:box 8 :out 0)) (:to (:box 7 :in 0)))
+  (:connection (:from (:box 9 :out 0)) (:to (:box 8 :in 0)))
+  (:connection (:from (:box 11 :out 0)) (:to (:box 8 :in 1)))
+  (:connection (:from (:box 12 :out 0)) (:to (:box 2 :in 1)))))
