@@ -28,4 +28,4 @@ In my compositional uses, it was possible to make large spacialitation works, sy
 #### Using IEM Plugins and 3DC class
 
 ![IEM Plugins and OM-pd]([http://url/to/img.png](https://github.com/charlesneimog/OM-pd/raw/master/resources/Exemplo%20-%20Espacializacao.png
-))
+)
