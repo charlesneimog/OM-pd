@@ -35,6 +35,8 @@ The patch processes a lot of audio data using tridimensional coordenates of 3DC.
 
 ![IEM Plugins and OM-pd](https://github.com/charlesneimog/OM-pd/blob/master/resources/Exemplo%20-%20Espacializacao.png)
 
+https://user-images.githubusercontent.com/31707161/175837214-feb1fe11-1b7d-42de-a8da-8e2c594e79ce.mp4
+
 #### Playing DataStream
 
 The patch play `data-stream`. Here I import a tradicional score from my notation software (using om-py) and then play it using Orchidea-Sol samples, PureData.  
