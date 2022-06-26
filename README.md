@@ -1,7 +1,7 @@
 # OM-pd 
 
 
-*OM-pd* aims to put the PureData (mainly offline mode) inside OM-Sharp. It could help to work with VST plugins, SoundFont, and general audio processing, among other things for batch processing and bigdata.
+*OM-pd* aims to put the PureData (mainly offline mode) inside OM-Sharp. It could help to work with process lot of samples using VST plugins, SoundFont, and general audio processing.
 
 
 ### Setting of Microtonal Player
