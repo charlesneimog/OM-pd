@@ -14,7 +14,7 @@ You need to install Cyclone and Else by Alexandre Porres. Open PureData, go to `
 
 ### Linux PureData for Windows Users
 
-It is a super-specific feature that will be few uses. The main about this is to be possible to test some objects of PureData, developed in Unix Systems, without wasting time with the compilation for Windows OS.  
+It is a super-specific feature that will be few used. The main about this is to be possible to test some objects of PureData, developed in Unix Systems, without wasting time with the compilation for Windows OS.  
 To work you need: 
 
 1. Open `PowerShell` in Administrator and run `wsl --install`.
