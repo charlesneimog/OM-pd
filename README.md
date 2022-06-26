@@ -1,16 +1,20 @@
 # OM-pd 
 
 
-*OM-pd* aims to put the PureData (mainly offline mode) inside OM-Sharp. It could help to work with VST plugins, SoundFont, and general audio processing, among other things.  
+*OM-pd* aims to put the PureData (mainly offline mode) inside OM-Sharp. It could help to work with process lot of samples using VST plugins, SoundFont, and general audio processing.
 
 
 ### Setting of Microtonal Player
 
-It should work automatically in macOS and Windows, if not please let me know. In Linux, you need to install Cyclone and Else by Alexandre Porres.
+You need to install Cyclone and Else by Alexandre Porres. Open PureData, go to `Help->Find External` then search for `else` and `cyclone`. Click in `INSTALL`.
+
+
+<img src="https://github.com/charlesneimog/OM-pd/blob/master/resources/Using%20Deken.png" width="512"/>
+
 
 ### Linux PureData for Windows Users
 
-It is a super-specific feature that will be few uses. The main about this is to be possible to test some objects of PureData, developed in Unix Systems, without wasting time with the compilation for Windows OS.  
+It is a super-specific feature that will be few used. The main about this is to be possible to test some objects of PureData, developed in Unix Systems, without wasting time with the compilation for Windows OS.  
 To work you need: 
 
 1. Open `PowerShell` in Administrator and run `wsl --install`.
@@ -26,6 +30,8 @@ In my compositional uses, it was possible to make large spacialitation works, sy
 
 
 #### Using IEM Plugins and 3DC class
+
+The patch processes a lot of audio data using tridimensional coordenates of 3DC.
 
 ![IEM Plugins and OM-pd](https://github.com/charlesneimog/OM-pd/blob/master/resources/Exemplo%20-%20Espacializacao.png)
 
