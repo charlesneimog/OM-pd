@@ -8,6 +8,8 @@
 
 You need to install Cyclone and Else by Alexandre Porres. Open PureData, go to `Help->Find External` then search for `else` and `cyclone`. Click in `INSTALL`.
 
+![image](https://user-images.githubusercontent.com/31707161/176052309-d1548486-408c-420a-9e40-f3f398f03cd4.png)
+
 
 <img src="https://github.com/charlesneimog/OM-pd/blob/master/resources/Using%20Deken.png" width="512"/>
 
