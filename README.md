@@ -21,7 +21,7 @@ To work you need:
 2. Then `wsl --install -d Ubuntu`. 
 3. Then configure your username and password.
 4. Then run `sudo apt-get install puredata`.
-5. Now you need to compile you Linux object, open Linux PureData (use [GWSL](https://github.com/Opticos/GWSL-Source) if you want the GUI), make the patch. 
+5. Now you need to compile you Linux object, open Linux PureData (use [GWSL](https://github.com/Opticos/GWSL-Source) if you want the GUI), make the patch, and run you bigdata patches!
 
 ### Examples 
 
