@@ -2,13 +2,11 @@
 
 (setf new-thread nil)
 
-
 ; ============================================================================================
 
 (defun path2wsl (path)
 
   (om::string+ "/mnt/c" (replace-all (replace-all (namestring path) "\\" "/") "C:" "")))
-
 
 ; ========================================== FUNCTIONS ==========================================
 
@@ -40,7 +38,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 ; ================================================================
 
 
-(defmethod! pd~ ((patch pure-data) &key (sound-in nil) (sound-out nil) (var nil) (gui t) (offline nil) (verbose nil))
+(defmethod! pd~ ((patch pure-data) &key (sound-in nil) (sound-out nil) (var nil) (gui nil) (offline nil) (verbose nil))
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
 :icon 'pd
@@ -68,7 +66,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                       (null (om::tmpfile "sound.wav")))))
 
 
-(if gui
+(if (and gui offline)
     (mp:process-run-function "Open PureData"
                  () 
                   (lambda () (ckn-pd~ sound-in sound-out patch var gui offline verbose)))
@@ -232,7 +230,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
     (offline (if offline " -batch " ""))
     (pd-patch (replace-all (namestring (pd-path patch)) "\\" "/"))
     (wsl-path (namestring (merge-pathnames "resources/executables/wsl/wsl.exe"  (mypathname (find-library "OM-CKN")))))
-    (command-line (om::string+ wsl-path " pd " " -audiooutdev 0 " gui " " pd-verbose " " offline " -open " "'" (path2wsl pd-patch) "'" " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
+    (command-line (om::string+ wsl-path " pd " " -audiooutdev 0 -blocksize 65536 -r 44100 -audiobuf 20000 -sleepgrain 200 " gui " " pd-verbose " " offline " -open " "'" (path2wsl pd-patch) "'" " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
     (print command-line)
     (oa::om-command-line command-line verbose)
     (if gui (om::om-print "Finish!" "PD"))
@@ -400,7 +398,10 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 :doc ""
 
 (if (not (find-library "OM-CKN"))
-    (progn (abort-eval) (print "pd-multithreading require the library OM-CKN")))
+    (progn  
+                   (if (om-y-or-n-dialog "Pd-multithreading require the library OM-CKN, want to download it?")
+                       (hqn-web:browse "https://github.com/charlesneimog/OM-CKN/releases/"))
+                   (abort-eval)))
     
 
 (let* (
