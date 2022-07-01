@@ -101,7 +101,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                                                         (length-of-path (length (om::string-to-list (namestring path) " "))))
                                                         (if (> length-of-path 1)
                                                             (let* (
-                                                                (message (om::om-print (format nil "The pathname in the ~d spaces in it, coping to temp-files." (car all-var)) "OM-CKN"))
+                                                                (message (om::om-print (format nil "The pathname in the ~d spaces in it, coping to temp-files." (car all-var)) "OM-pd"))
                                                                 (copy-to-tmp-files (om::tmpfile (om::string+ (write-to-string var-index) "." (car (last (om::string-to-list (namestring path) ".")))))))
                                                                 (system::copy-file path copy-to-tmp-files)
                                                                 (om::x-append (car all-var) copy-to-tmp-files))
@@ -202,7 +202,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                                                         (length-of-path (length (om::string-to-list (namestring path) " "))))
                                                         (if (> length-of-path 1)
                                                             (let* (
-                                                                (message (om::om-print (format nil "The pathname in the ~d spaces in it, coping to temp-files." (car all-var)) "OM-CKN"))
+                                                                (message (om::om-print (format nil "The pathname in the ~d spaces in it, coping to temp-files." (car all-var)) "OM-pd"))
                                                                 (copy-to-tmp-files (om::tmpfile (om::string+ (write-to-string var-index) "." (car (last (om::string-to-list (namestring path) ".")))))))
                                                                 (system::copy-file path copy-to-tmp-files)
                                                                 (om::x-append (car all-var) copy-to-tmp-files))
@@ -229,7 +229,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
     (gui (if gui " " " -nogui"))
     (offline (if offline " -batch " ""))
     (pd-patch (replace-all (namestring (pd-path patch)) "\\" "/"))
-    (wsl-path (namestring (merge-pathnames "resources/executables/wsl/wsl.exe"  (mypathname (find-library "OM-CKN")))))
+    (wsl-path (namestring (merge-pathnames "resources/executables/wsl/wsl.exe"  (mypathname (find-library "OM-pd")))))
     (command-line (om::string+ wsl-path " pd " " -audiooutdev 0 -blocksize 65536 -r 44100 -audiobuf 20000 -sleepgrain 200 " gui " " pd-verbose " " offline " -open " "'" (path2wsl pd-patch) "'" " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
     (print command-line)
     (oa::om-command-line command-line verbose)
@@ -278,7 +278,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                                                         (length-of-path (length (om::string-to-list (namestring path) " "))))
                                                         (if (> length-of-path 1)
                                                             (let* (
-                                                                (message (om::om-print (format nil "The pathname in the ~d spaces in it, coping to temp-files." (car all-var)) "OM-CKN"))
+                                                                (message (om::om-print (format nil "The pathname in the ~d spaces in it, coping to temp-files." (car all-var)) "OM-pd"))
                                                                 (copy-to-tmp-files (om::tmpfile (om::string+ (write-to-string var-index) "." (car (last (om::string-to-list (namestring path) ".")))))))
                                                                 (system::copy-file path copy-to-tmp-files)
                                                                 (om::x-append (car all-var) copy-to-tmp-files))

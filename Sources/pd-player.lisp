@@ -71,7 +71,7 @@
                                                                 :gui nil 
                                                                 :offline nil 
                                                                 :sound-out (tmpfile "PD.wav") ;; This will not be used just to not need to redefine the pd~ function.
-                                                                :verbose t))))))
+                                                                :verbose nil))))))
 
             (setf *pd-is-open* nil)
 
@@ -81,7 +81,7 @@
 
             (loop :with pd-start = nil 
                   :while (null *pd-is-open*)
-                  :finally (om::om-print "PD is open!" "OM-CKN")) ;; Wait PD to be open!
+                  :finally (om::om-print "PD is open!" "OM-pd")) ;; Wait PD to be open!
 
             
             (loop :for udp-server :in *running-udp-servers*
@@ -119,7 +119,7 @@
                         (sleep last-duration) ;; Wait last duration of the voice/chord
 
                         ;(box-player-stop caller) ;; How to make the timeline (I don't know the name of it) || red bar in the score
-
+                        (when (and (boundp '*general-player*) *general-player*) (play/stop-boxes *OM-Pd_PureData-object-playing*)) ;; Stop the boxes
                         (if *PureData-PLAY-STATE* (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 1996)) ;; tell PD that the process if finished and kill it
                         (if *PureData-PLAY-STATE* (setf *PureData-PLAY-STATE* nil)))))) ;; 
       
@@ -140,7 +140,8 @@
   
   (if (get-pref-value :externals :PureData-Player)
       (progn 
-              (om::om-print "Closing PD" "OM-CKN")
+              ;(om::om-print "Closing PD" "OM-CKN")
+              
               (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 1996)))
    
   (call-next-method)) ;; This is OM-Sharp CODE 
@@ -160,6 +161,9 @@
 
 (defmethod play/stop-boxes ((boxlist list))
   (let* ((play-boxes (remove-if-not 'play-box? boxlist)))
+      
+
+      
       
       (if (find-if 'play-state play-boxes)
         

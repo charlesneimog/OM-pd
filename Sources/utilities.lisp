@@ -70,7 +70,10 @@
       (case key
 
         ;;; play/stop commands
-        (#\Space (when player-active (play/stop-boxes selected-boxes)))
+        (#\Space (progn 
+                     (setf *OM-Pd_PureData-object-playing* selected-boxes)
+                     (when player-active (play/stop-boxes selected-boxes)))) ;; Added by OM-pd
+
         (#\s (when player-active (stop-boxes selected-boxes)))
 
         (:om-key-delete (unless (edit-lock editor)
