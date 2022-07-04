@@ -7,7 +7,8 @@
 ;; =============================================================================================================
 
 (add-preference-section :externals "PureData" nil '(:PureData :Pd-Patches))
-(add-preference :externals :PureData "Pure Data executable" :file " ")
+#-linux(add-preference :externals :PureData "Pure Data executable" :file " ")
+#+linux(add-preference :externals :PureData "Pure Data executable"  "pd ")
 (add-preference :externals :Pd-Patches "Pure Data Patches" :folder (merge-pathnames "Pd-Patches/" (lib-resources-folder (find-library "OM-pd"))))
 
 
