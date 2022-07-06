@@ -2,7 +2,7 @@
 
 ;===================================================================== Files control =====================================
 
-(defun get-filename (x)
+(defun ompd-get-filename (x)
 "I forgot the name of the function that I stolen somewhere."
 
 (let* (
@@ -15,7 +15,7 @@
 
 ;=====================================================================  
 
-(defun search-inside-some-folder (folder extension)                                                                         
+(defun ompd-search-inside-some-folder (folder extension)                                                                         
       (let* (
             (thepath folder)
             (thefilelist (om-directory thepath 
@@ -26,20 +26,20 @@
                               :hidden-files nil))
             (more-folders? (mapcar (lambda (x) (if 
                                                       (system::directory-pathname-p x)
-                                                      (search-inside-some-folder x extension)
+                                                      (ompd-search-inside-some-folder x extension)
                                                       x)) thefilelist)))
             more-folders?))
 
 ;=====================================================================  
 
-(defun list->string-fun (ckn-list)
+(defun ompd-list->string-fun (ckn-list)
   (when ckn-list
     (concatenate 'string 
-                 (write-to-string (car ckn-list)) (list->string-fun (cdr ckn-list)))))
+                 (write-to-string (car ckn-list)) (ompd-list->string-fun (cdr ckn-list)))))
 
 
 ;; ======================================
-(defun concatString (list)
+(defun ompd-concatstring (list)
   "A non-recursive function that concatenates a list of strings."
   (if (listp list)
       (let ((result ""))
@@ -59,6 +59,14 @@
 ; ================================= OM-KEYS ==========================================================
 ; ====================================================================================================
 ; ====================================================================================================
+
+(format om-lisp::*om-stream* (string #\Newline))
+(format om-lisp::*om-stream* (string #\Newline))
+(format om-lisp::*om-stream* "OM-pd :: Redefining editor-key-action.") 
+(format om-lisp::*om-stream* (string #\Newline))
+
+
+
 
 (defmethod editor-key-action ((editor patch-editor) key)
   (declare (special *general-player*))
@@ -266,3 +274,7 @@
        ; ======================================== 
         
        (otherwise nil)))))
+
+
+(format om-lisp::*om-stream* (string #\Newline))
+(format om-lisp::*om-stream* (string #\Newline))
