@@ -350,7 +350,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (if 
     (equal nil action1) 
         (let* (
-                (action1 (om-print "fxp-presets not found" "Abort")))
+                (action1 (om-print "PD-Patch not found" "Warning")))
                 (om::make-value 'pure-data (list (list :pd-path " "))))
     (om::make-value 'pure-data (list (list :pd-path action1))))))
 
@@ -367,7 +367,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (if 
     (equal nil action1) 
         (let* (
-                (action1 (om-print "fxp-presets not found" "Abort")))
+                (action1 (om-print "PD-Patch not found" "Warning")))
                 (om::make-value 'pure-data (list (list :pd-path " "))))
     (om::make-value 'pure-data (list (list :pd-path action1))))))
 
