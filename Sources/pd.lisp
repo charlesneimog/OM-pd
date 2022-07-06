@@ -128,7 +128,11 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
     (gui (if gui " " " -nogui"))
     (offline (if offline " -batch " ""))
     (pd-patch (replace-all (namestring (pd-path patch)) "\\" "/"))
-    (command-line (om::string+ pd-executable  " -audiooutdev 0 " gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
+    (windows_prober_out 
+        #+Windows " -audiooutdev 0 "
+        #-Windows " ")
+
+    (command-line (om::string+ pd-executable  windows_prober_out gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
     (oa::om-command-line command-line verbose)
     (if gui (om::om-print "Finish!" "PD"))
     (mp:process-run-function "Delete Files"
