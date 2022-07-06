@@ -128,11 +128,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
     (gui (if gui " " " -nogui"))
     (offline (if offline " -batch " ""))
     (pd-patch (replace-all (namestring (pd-path patch)) "\\" "/"))
-    (windows_prober_out 
-        #+Windows " -audiooutdev 0 "
-        #-Windows " ")
-
-    (command-line (om::string+ pd-executable  windows_prober_out gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
+    (command-line (om::string+ pd-executable  " -audiooutdev 0 " gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
     (oa::om-command-line command-line verbose)
     (if gui (om::om-print "Finish!" "PD"))
     (mp:process-run-function "Delete Files"
@@ -353,7 +349,9 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (action1 (probe-file (merge-pathnames name-of-patch (namestring (get-pref-value :externals :Pd-Patches))))))
 (if 
     (equal nil action1) 
-    (let* ((action1 (om-print "fxp-presets not found" "Abort"))) (abort)) 
+        (let* (
+                (action1 (om-print "fxp-presets not found" "Abort")))
+                (om::make-value 'pure-data (list (list :pd-path " "))))
     (om::make-value 'pure-data (list (list :pd-path action1))))))
 
 
@@ -368,7 +366,9 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (action1 (probe-file (merge-pathnames name-of-patch (namestring (get-pref-value :externals :Pd-Patches))))))
 (if 
     (equal nil action1) 
-    (let* ((action1 (om-print "pd-patch not exits!" "Abort"))) (abort)) 
+        (let* (
+                (action1 (om-print "fxp-presets not found" "Abort")))
+                (om::make-value 'pure-data (list (list :pd-path " "))))
     (om::make-value 'pure-data (list (list :pd-path action1))))))
 
 
