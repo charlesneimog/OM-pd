@@ -50,17 +50,12 @@
 
 (add-preference :externals :SoundFont "SoundFound" *all-available-soundfonts*  (car *all-available-soundfonts* )) ;; add-preference in OM-Sharp Menu.
 
-;;; ============================================
+;; ========================================================================
 
-(defmethod puredata-player ((voice voice) caller)
 
-(if *PureData-PLAY-STATE*
-      (progn
-                  (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 1996) ;; kill PD if it is running (Just one process simmultaneously)
-                  (setf *PureData-PLAY-STATE* nil))
+(defun pd-player-open-PD ()
 
-(progn
-            (mp:process-run-function "Open PD"
+(mp:process-run-function "Open PD"
                  () 
                   (lambda ()
                           (progn 
@@ -69,125 +64,267 @@
                                               (lambda () (pd~ 
                                                             (pd-define-patch "Microtonal-player.pd") ;; Here is the PD patch
                                                                 :var (list (om::x-append 'soundfont (probe-file (om::string+ (om::string+ (get-pref-value :externals :SoundFont-Folder) (get-pref-value :externals :SoundFont))))))
-                                                                :gui nil 
+                                                                :gui nil
                                                                 :offline nil 
                                                                 :sound-out (tmpfile "PD.wav") ;; This will not be used just to not need to redefine the pd~ function.
-                                                                :verbose nil))))))
-
-            (setf *pd-is-open* nil)
-
-            (om-start-udp-server 3320 "127.0.0.1" (lambda (msg) (let () (if  (equal (car (cdr (osc-decode msg))) 1.0)
-                                                                              (progn (setf *pd-is-open* t) nil)
-                                                                              )))) ;;; When PD is open, the loadbang will sent one 1 to this port.
-
-            (loop :with pd-start = nil 
-                  :while (null *pd-is-open*)
-                  :finally (om::om-print "PD is open!" "OM-pd")) ;; Wait PD to be open!
-
-            
-            (loop :for udp-server :in *running-udp-servers*
-                  :do (if (equal (mp:process-name (third udp-server)) "UDP receive server on \"127.0.0.1\" 3320")
-                  (progn (om::om-stop-udp-server (third udp-server))))) ;; Remove the UDP server to check is
-                                                                          ;; the PD is open!
-            
-            
-            ; This let will send the score data to PureData that will play it!
-            ; For now I am using the sleep function to wait and put it on time. There are some better way??
-            (let* (
-                  (score-lonset (lonset voice)) ;; All onsets of notes
-                  (dx-lonset (om::x-append (car score-lonset) (om::x->dx score-lonset))) ;; if the first figure is a Rest.
-                  (score-data (mat-trans (list (om::lmidic voice) (om::lvel voice) (om::lchan voice) (om::ldur voice)))) ;; organize the data by (note vel chan dur)
-                  (last-duration (car (om::list! (om::ms->sec (car (last (om::ldur voice))))))))
-                  (setf *PureData-PLAY-STATE* t) ; check if there are other voices playing
-                  (loop :for onsets :in dx-lonset ; start the loop
-                        :for notes :in score-data 
-                        :while *PureData-PLAY-STATE*
-                        :do (let* (
-                                    (the-notes (list notes))) ; the notes to be played
-                                    (sleep (om::ms->sec onsets)) ; wait the time of the onset
-                                    (mapcar (lambda (x) ;; send data already in time to PureData
-                                                (mapcar 
-                                                      (lambda (notes lvel lchan ldur) 
-                                                            (let* (
-                                                                  (data2send (om::x-append notes lvel lchan ldur)) ;; last format of data
-                                                                  (format-msg (om::osc-msg "/note" data2send))) ;; create OSC message
-                                                                  (om::osc-send format-msg "127.0.0.1" 1996)))    (first x) ;; note
-                                                                                                                  (second x) ;; vel
-                                                                                                                  (third x) ; lchannel 
-                                                                                                                  (fourth x))) ; duration
-                                                                                                                              the-notes))) ;; send data to PureData
-                              
-                        (sleep last-duration) ;; Wait last duration of the voice/chord
-
-                        ;(box-player-stop caller) ;; How to make the timeline (I don't know the name of it) || red bar in the score
-                        (when (and (boundp '*general-player*) *general-player*) (play/stop-boxes *OM-Pd_PureData-object-playing*)) ;; Stop the boxes
-                        (if *PureData-PLAY-STATE* (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 1996)) ;; tell PD that the process if finished and kill it
-                        (if *PureData-PLAY-STATE* (setf *PureData-PLAY-STATE* nil)))))) ;; 
-      
-
-;; =====================================================================
-;; Redefine the method that will play the score
-
-(defmethod player-stop-object ((self scheduler) (object score-element))
-  
-  ;; This is OM-Sharp CODE 
-
-  (send-current-midi-key-offs object)
-  (when (and (equal :auto-bend (get-pref-value :score :microtone-bend))
-             *micro-channel-mode-on*)
-    (loop for p in (collec-ports-from-object object) do (micro-reset p)))
-
-  ;; Finish of OM-Sharp CODE 
-  
-  (if (get-pref-value :externals :PureData-Player)
-      (progn 
-              ;(om::om-print "Closing PD" "OM-CKN")
-              
-              (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 1996)))
-   
-  (call-next-method)) ;; This is OM-Sharp CODE 
-
-;; =====================================================================
-
-(defmethod PD-player-play-object ((self scheduler) (object score-element) (caller ScoreBoxEditCall) &key parent interval)
-  
-  (declare (ignore parent interval)) ;; This is OM-Sharp CODE 
-  
-      (mp:process-run-function "Open PD" () (lambda () (puredata-player object caller)))) ;; Open Function to play in PureData
-      ;(box-player-start object))
-
-;;; =======================
-
-;; This is the method used when SPACE in pressed!!
-
-(defmethod play/stop-boxes ((boxlist list))
-  (let* ((play-boxes (remove-if-not 'play-box? boxlist)))
-      
-
-      
-      
-      (if (find-if 'play-state play-boxes)
-        
-        ;;; stop all
-        (mapc #'(lambda (box) (player-stop-object *general-player* (get-obj-to-play box)) (box-player-stop box)) play-boxes)
-      
-        ;;; start all
-        (if (get-pref-value :externals :PureData-Player)
-            
-            (if (member (type-of (car boxlist)) (list 'scoreboxeditcall 'voice 'chord 'chord-seq 'note))
-                  (mapc (lambda (box) (when (play-obj? (get-obj-to-play box)) (PD-player-play-object *general-player* (get-obj-to-play box) box) (box-player-start box))) play-boxes)
-                  (mapc (lambda (box) (when (play-obj? (get-obj-to-play box)) (player-play-object *general-player* (get-obj-to-play box) box) (box-player-start box))) play-boxes))
-
-            (mapc 
-                  (lambda (box) 
-                      (when (play-obj? (get-obj-to-play box)) (player-play-object *general-player* (get-obj-to-play box) box) (box-player-start box)))
-            play-boxes)))))
+                                                                :verbose nil)))))))
 
 ;; ========================================================================
 
+(defun pd-player-wait-pd ()
+
+       (progn 
+              (setf *pd-is-open* nil)
+
+              (om-start-udp-server 3320 "127.0.0.1" (lambda (msg) (let () (if  (equal (car (cdr (osc-decode msg))) 1.0)
+                                                                              (progn (setf *pd-is-open* t) nil)
+                                                                              )))) ;;; When PD is open, the loadbang will sent one 1 to this port.
+
+              (loop :with pd-start = nil 
+                  :while (null *pd-is-open*)
+                  :finally (om::om-print "PD is open!" "OM-pd")) ;; Wait PD to be open!
+
+              (loop :for udp-server :in *running-udp-servers*
+                  :do (if (equal (mp:process-name (third udp-server)) "UDP receive server on \"127.0.0.1\" 3320")
+                  (progn (om::om-stop-udp-server (third udp-server)))))
+                  
+              (sleep 1) ;; better
+                  )) ;; Remove the UDP server to check is the PD is open
 
 
 
+
+; ====================================================================================================
+; ====================================================================================================
+; ================================= OM-KEYS ==========================================================
+; ====================================================================================================
+; ====================================================================================================
+
+(defmethod editor-key-action ((editor patch-editor) key)
+  (declare (special *general-player*))
+
+  (let* ((panel (get-editor-view-for-action editor))
+         (selected-boxes (get-selected-boxes editor))
+         (selected-connections (get-selected-connections editor))
+         (player-active (and (boundp '*general-player*) *general-player*)))
+
+    (when panel
+
+      (if (and (om-action-key-down) selected-boxes)
+          ;; works with special keys (arrows, enter, ...)
+          ;; 'normal' keys are caught through the menu shortcut system
+          (loop for box in selected-boxes do (box-key-action box key))
+
+        (case key
+
+              (#\Space (progn        
+                            (if *PureData-PLAY-STATE*
+                                   (progn
+                                          (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000) ;; kill PD if it is running (Just one process simmultaneously)
+                                          (setf *PureData-PLAY-STATE* nil)
+                                          (when player-active (play/stop-boxes selected-boxes)))
+                                   (progn
+                                          (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000) ;; before start, kill PD if it is running (Just one process simmultaneously)
+                                          (pd-player-open-PD)
+                                          (setf *PureData-PLAY-STATE* t)
+                                          (pd-player-wait-pd)
+                                          (when player-active (play/stop-boxes selected-boxes))))
+                                          (let*  (
+                                                 (play-boxes (remove-if-not 'play-box? selected-boxes)))
+                                                 (mp:process-run-function "Run PD in Backgroud!"
+                                                               () 
+                                                                      (lambda ()
+                                                                             (let* (
+                                                                                    (objects (mapcar 'get-obj-to-play play-boxes))
+                                                                                    (dur-of-objects (mapcar 'object-dur objects))
+                                                                                    (max-dur (ms->sec (+ (list-max dur-of-objects) 5000))))
+                                                                                    (setf *PureData-PLAY-STATE* nil)
+                                                                                    (sleep max-dur)
+                                                                                    ;(om-print "Closing PD!" "OM-pd")
+                                                                                    (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000)))))))
+                                          
+
+                     
+              (#\s (when player-active (stop-boxes selected-boxes)))
+
+              (:om-key-delete (unless (edit-lock editor)
+                                   (store-current-state-for-undo editor)
+                                   (remove-selection editor)))
+
+              (#\n (if selected-boxes
+                     (mapc 'set-show-name selected-boxes)
+                     (unless (edit-lock editor)
+                     (make-new-box panel))))
+
+              (#\p (unless (edit-lock editor)
+                     (make-new-abstraction-box panel)))
+
+              (:om-key-left (unless (edit-lock editor)
+                            (if (om-option-key-p)
+                                   (when selected-boxes
+                                   (store-current-state-for-undo editor)
+                                   (mapc 'optional-input-- selected-boxes))
+                                   (let ((selection (or selected-boxes selected-connections)))
+                                   (store-current-state-for-undo editor :action :move :item selection)
+                                   (mapc
+                                   #'(lambda (f) (move-box f (if (om-shift-key-p) -10 -1) 0))
+                                   selection))
+                                   )))
+              (:om-key-right (unless (edit-lock editor)
+                            (if (om-option-key-p)
+                                   (when selected-boxes
+                                   (store-current-state-for-undo editor)
+                                   (mapc 'optional-input++ selected-boxes))
+                                   (let ((selection (or selected-boxes selected-connections)))
+                                   (store-current-state-for-undo editor :action :move :item selection)
+                                   (mapc #'(lambda (f) (move-box f (if (om-shift-key-p) 10 1) 0))
+                                          selection))
+                                   )))
+              (:om-key-up (unless (edit-lock editor)
+                            (store-current-state-for-undo editor :action :move :item (or selected-boxes selected-connections))
+                            (mapc #'(lambda (f) (move-box f 0 (if (om-shift-key-p) -10 -1)))
+                                   (or selected-boxes selected-connections))
+                            ))
+              (:om-key-down (unless (edit-lock editor)
+                            (store-current-state-for-undo editor :action :move :item (or selected-boxes selected-connections))
+                            (mapc #'(lambda (f) (move-box f 0 (if (om-shift-key-p) 10 1)))
+                                   (or selected-boxes selected-connections))
+                            ))
+
+              (#\k (unless (edit-lock editor)
+                     (when selected-boxes
+                     (store-current-state-for-undo editor)
+                     (mapc 'keyword-input++ selected-boxes))))
+              (#\+ (unless (edit-lock editor)
+                     (when selected-boxes
+                     (store-current-state-for-undo editor)
+                     (mapc 'keyword-input++ selected-boxes))))
+              (#\K (unless (edit-lock editor)
+                     (when selected-boxes
+                     (store-current-state-for-undo editor)
+                     (mapc 'keyword-input-- selected-boxes))))
+              (#\- (unless (edit-lock editor)
+                     (when selected-boxes
+                     (store-current-state-for-undo editor)
+                     (mapc 'keyword-input-- selected-boxes))))
+
+              (#\> (unless (edit-lock editor)
+                     (when selected-boxes
+                     (store-current-state-for-undo editor)
+                     (mapc 'optional-input++ selected-boxes))))
+              (#\< (unless (edit-lock editor)
+                     (when selected-boxes
+                     (store-current-state-for-undo editor)
+                     (mapc 'optional-input-- selected-boxes))))
+
+              (#\b (when selected-boxes
+                     (store-current-state-for-undo editor)
+                     (mapc 'switch-lock-mode selected-boxes)))
+
+              (#\1 (unless (or (edit-lock editor) (get-pref-value :general :auto-ev-once-mode))
+                     (when selected-boxes
+                     (store-current-state-for-undo editor)
+                     (mapc 'switch-evonce-mode selected-boxes))))
+
+              (#\l (unless (edit-lock editor)
+                     (when selected-boxes
+                     (store-current-state-for-undo editor)
+                     (mapc 'switch-lambda-mode selected-boxes))))
+
+              (#\m (mapc 'change-display selected-boxes))
+
+
+              ;;; Box editing
+              ;;; => menu commands ?
+
+              (#\A (unless (edit-lock editor)
+                     (store-current-state-for-undo editor)
+                     (align-selected-boxes editor)))
+
+              (#\S (unless (edit-lock editor)
+                     (store-current-state-for-undo editor)
+                     (let ((selection (append selected-boxes selected-connections)))
+                     (mapc 'consolidate-appearance selection)
+                     (update-inspector-for-editor editor nil t))))
+
+              (#\c (unless (edit-lock editor)
+                     (store-current-state-for-undo editor)
+                     (if selected-boxes
+                            (auto-connect-box selected-boxes editor panel)
+                     (make-new-comment panel))))
+
+              (#\C (unless (edit-lock editor)
+                     (store-current-state-for-undo editor)
+                     (auto-connect-seq selected-boxes editor panel)))
+
+              (#\r (unless (edit-lock editor)
+                     (store-current-state-for-undo editor)
+                     (mapc 'set-reactive-mode (or selected-boxes selected-connections))))
+
+              (#\i (unless (edit-lock editor)
+                     (store-current-state-for-undo editor)
+                     (mapc 'initialize-size (or selected-boxes selected-connections))))
+
+              (#\I (mapc 'initialize-box-value selected-boxes))
+
+              (#\r (unless (edit-lock editor)
+                     (store-current-state-for-undo editor)
+                     (mapc 'set-reactive-mode (or selected-boxes selected-connections))))
+
+              ;;; abstractions
+              (#\a (unless (edit-lock editor)
+                     (when selected-boxes
+                     (store-current-state-for-undo editor)
+                     (mapc 'internalize-abstraction selected-boxes))))
+
+              (#\E (unless (edit-lock editor)
+                     (encapsulate-patchboxes editor panel selected-boxes)))
+
+              (#\U (unless (edit-lock editor)
+                     (unencapsulate-patchboxes editor panel selected-boxes)))
+
+              (#\L (unless (edit-lock editor)
+                     (store-current-state-for-undo editor)
+                     (list-boxes editor panel selected-boxes)))
+
+              (#\v (eval-editor-boxes editor selected-boxes))
+
+              (#\w (om-debug))
+
+              (#\h (funcall (help-command editor)))
+
+              (#\d (when selected-boxes
+                     (mapcar #'print-help-for-box selected-boxes)))
+
+
+              ; ======================================== 
+              ; ========== OM-PY =======================
+              ; ========================================
+
+              (#\z (if   (and  selected-boxes 
+                        (find-library "OM-py") 
+                        (or 
+                              (equal (type-of (car (om::list! selected-boxes))) 'omboxpy) 
+                              (equal (type-of (car (om::list! selected-boxes))) 'OMBox-run-py)))
+
+              ; if omboxpy or OMBox-run-py is selected, then open the VS-code
+
+                  (progn
+                     (om::om-print "Opening VScode!" "OM-Py")
+                     (defparameter *vscode-opened* t)
+                     (open-vscode selected-boxes))
+
+              ; if nothing is selected, then new py-script
+
+                  (unless (edit-lock editor)
+                            ;(print panel)
+                            (make-new-py-box panel))))
+        
+       ; ======================================== 
+       ; ========== OM-PY =======================
+       ; ======================================== 
+              (otherwise nil))
+                                   ))))
 
 
 
