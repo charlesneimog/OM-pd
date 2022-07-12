@@ -30,7 +30,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 
 (defclass! pure-data ()
     (
-        (pd :initform (list->string-fun (list (namestring (get-pref-value :externals :PureData)))) :initarg :pd :accessor pd)
+        (pd :initform (ompd-list->string-fun (list (namestring (get-pref-value :externals :PureData)))) :initarg :pd :accessor pd)
         (pd-path :initform nil :initarg :pd-path :accessor pd-path)
         (command-line :initform nil :initarg :command-line :accessor command-line)
         (pd-outfile :initform nil :initarg :pd-outfile :accessor pd-outfile)))
@@ -111,18 +111,18 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
     (outfile (replace-all (namestring sound-out) "\\" "/"))
     (tmp-infile-name (if sound-in (om::tmpfile (om::string+ (write-to-string (om::om-random 10000 99999)) "." (car (last (om::string-to-list (namestring sound-in) ".")))))))
     (int-copy-to-tmpfile (if sound-in (om::om-copy-file sound-in tmp-infile-name)))
-    (fixed_infile (if sound-in (om::string+ " -send " (list->string-fun (list (om::string+ "infile " (replace-all (namestring int-copy-to-tmpfile) "\\" "/") ", "))))))
-    (fixed_outfile (if sound-out (om::string+ " -send " (list->string-fun (list (om::string+ "outfile " (replace-all (namestring outfile) "\\" "/") ", "))))))
+    (fixed_infile (if sound-in (om::string+ " -send " (ompd-list->string-fun (list (om::string+ "infile " (replace-all (namestring int-copy-to-tmpfile) "\\" "/") ", "))))))
+    (fixed_outfile (if sound-out (om::string+ " -send " (ompd-list->string-fun (list (om::string+ "outfile " (replace-all (namestring outfile) "\\" "/") ", "))))))
     (make_var 
             (loop :for all_variables :in check-if-some-var-have-spaces :collect 
                 (om::string+ 
                     (write-to-string (car all_variables)) " " 
-                    (concatstring (mapcar   (lambda (x) (if 
+                    (ompd-concatstring (mapcar   (lambda (x) (if 
                                                             (equal (type-of x) 'pathname)
                                                             (om::string+ (replace-all (namestring x) "\\" "/") " ")
                                                             (om::string+ (write-to-string x) " ")))
                                             (cdr all_variables))) " ")))
-    (variaveis (concatstring (loop :for var :in make_var :collect (om::string+ " -send " (list->string-fun (list var))))))
+    (variaveis (ompd-concatstring (loop :for var :in make_var :collect (om::string+ " -send " (ompd-list->string-fun (list var))))))
     (pd-executable (pd patch))
     (pd-verbose (if verbose " " " -noverbose -d 0 "))
     (gui (if gui " " " -nogui"))
@@ -212,18 +212,18 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
     (outfile (replace-all (namestring sound-out) "\\" "/"))
     (tmp-infile-name (if sound-in (om::tmpfile (om::string+ (write-to-string (om::om-random 10000 99999)) "." (car (last (om::string-to-list (namestring sound-in) ".")))))))
     (int-copy-to-tmpfile (if sound-in (om::om-copy-file sound-in tmp-infile-name)))
-    (fixed_infile (if sound-in (om::string+ " -send " (list->string-fun (list (om::string+ "infile " (path2wsl int-copy-to-tmpfile)))))))
-    (fixed_outfile (if sound-out (om::string+ " -send " (list->string-fun (list  (om::string+ "outfile " (path2wsl outfile)))))))
+    (fixed_infile (if sound-in (om::string+ " -send " (ompd-list->string-fun (list (om::string+ "infile " (path2wsl int-copy-to-tmpfile)))))))
+    (fixed_outfile (if sound-out (om::string+ " -send " (ompd-list->string-fun (list  (om::string+ "outfile " (path2wsl outfile)))))))
     (make_var 
             (loop :for all_variables :in check-if-some-var-have-spaces :collect 
                 (om::string+ 
                     (write-to-string (car all_variables)) " " 
-                    (concatstring (mapcar   (lambda (x) (if 
+                    (ompd-concatstring (mapcar   (lambda (x) (if 
                                                             (equal (type-of x) 'pathname)
                                                             (om::string+ (path2wsl x) " ")
                                                             (om::string+ (write-to-string x) " ")))
                                             (cdr all_variables))) " ")))
-    (variaveis (concatstring (loop :for var :in make_var :collect (om::string+ " -send " (list->string-fun (list  var))))))
+    (variaveis (ompd-concatstring (loop :for var :in make_var :collect (om::string+ " -send " (ompd-list->string-fun (list  var))))))
     (pd-executable (pd patch))
     (pd-verbose (if verbose " " " -noverbose -d 0 "))
     (gui (if gui " " " -nogui"))
@@ -288,18 +288,18 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
     (outfile (replace-all (namestring sound-out) "\\" "/"))
     (tmp-infile-name (if sound-in (om::tmpfile (om::string+ (write-to-string (om::om-random 10000 99999)) "." (car (last (om::string-to-list (namestring sound-in) ".")))))))
     (int-copy-to-tmpfile (if sound-in (om::om-copy-file sound-in tmp-infile-name)))
-    (fixed_infile (if sound-in (om::string+ " -send " (list->string-fun (list (om::string+ "infile " (replace-all (namestring int-copy-to-tmpfile) "\\" "/") ", "))))))
-    (fixed_outfile (if sound-out (om::string+ " -send " (list->string-fun (list (om::string+ "outfile " (replace-all (namestring outfile) "\\" "/") ", "))))))
+    (fixed_infile (if sound-in (om::string+ " -send " (ompd-list->string-fun (list (om::string+ "infile " (replace-all (namestring int-copy-to-tmpfile) "\\" "/") ", "))))))
+    (fixed_outfile (if sound-out (om::string+ " -send " (ompd-list->string-fun (list (om::string+ "outfile " (replace-all (namestring outfile) "\\" "/") ", "))))))
     (make_var 
             (loop :for all_variables :in check-if-some-var-have-spaces :collect 
                 (om::string+ 
                     (write-to-string (car all_variables)) " " 
-                    (concatstring (mapcar   (lambda (x) (if 
+                    (ompd-concatstring (mapcar   (lambda (x) (if 
                                                             (equal (type-of x) 'pathname)
                                                             (om::string+ (replace-all (namestring x) "\\" "/") " ")
                                                             (om::string+ (write-to-string x) " ")))
                                             (cdr all_variables))) " ")))
-    (variaveis (concatstring (loop :for var :in make_var :collect (om::string+ " -send " (list->string-fun (list var))))))
+    (variaveis (ompd-concatstring (loop :for var :in make_var :collect (om::string+ " -send " (ompd-list->string-fun (list var))))))
     (pd-executable (pd patch))
     (pd-verbose (if verbose " " " -noverbose -d 0 "))
     (gui (if gui " " " -nogui"))
@@ -323,14 +323,14 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
         (remove nil 
             (loop for patches in thefilelist 
                 :collect (let* (
-                    (name-of-patch (get-filename patches))
+                    (name-of-patch (ompd-get-filename patches))
                     (check-if-is-children (car (string-to-list name-of-patch "_"))))
                     
         (if show-all-patches                  
-            (get-filename patches)
+            (ompd-get-filename patches)
 
             (if (not (equal check-if-is-children "Children"))
-                        (get-filename patches))))))))
+                        (ompd-get-filename patches))))))))
 
 
 ; ================================================================
@@ -389,7 +389,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                   (loop :for loop-files :in thefilelist 
                         :collect (if 
                                           (system::directory-pathname-p loop-files)
-                                          (search-inside-some-folder loop-files extension)
+                                          (ompd-search-inside-some-folder loop-files extension)
                                           loop-files))))
             (remove nil (flat action1))))
 
@@ -426,7 +426,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (mp:process-run-function "Open PureData"
                  () 
                   #-windows(lambda () (om-cmd-line (om::string+ (pd patch) " -d 0 -audiooutdev 0 " (replace-all (namestring (pd-path patch)) "\\" "/"))))
-                  #+windows(lambda () (om-cmd-line (om::string+ (pd patch) " -d 0 -audiooutdev 0 " (list->string-fun (list (replace-all (namestring (pd-path patch)) "\\" "/"))))))
+                  #+windows(lambda () (om-cmd-line (om::string+ (pd patch) " -d 0 -audiooutdev 0 " (ompd-list->string-fun (list (replace-all (namestring (pd-path patch)) "\\" "/"))))))
 
 
 

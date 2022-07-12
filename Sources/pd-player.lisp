@@ -43,10 +43,10 @@
                   (loop :for loop-files :in thefilelist 
                         :collect (if 
                                     (system::directory-pathname-p loop-files)
-                                    (search-inside-some-folder loop-files extension)
+                                    (ompd-search-inside-some-folder loop-files extension)
                                     loop-files)))) ;; Recursive: check sf2 and sf3 inside folders 
 
-      (setf *all-available-soundfonts*  (mapcar (lambda (sf2&sf3) (get-filename sf2&sf3)) (remove nil (om::flat check_files_inside_folder)))))
+      (setf *all-available-soundfonts*  (mapcar (lambda (sf2&sf3) (ompd-get-filename sf2&sf3)) (remove nil (om::flat check_files_inside_folder)))))
 
 (add-preference :externals :SoundFont "SoundFound" *all-available-soundfonts*  (car *all-available-soundfonts* )) ;; add-preference in OM-Sharp Menu.
 
