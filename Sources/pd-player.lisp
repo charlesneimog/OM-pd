@@ -69,6 +69,16 @@
                                                                 :sound-out (tmpfile "PD.wav") ;; This will not be used just to not need to redefine the pd~ function.
                                                                 :verbose nil)))))))
 
+
+;; =============================================
+
+
+(defun close-UDP-server ()
+(loop :for udp-server :in *running-udp-servers*
+                  :do (if (equal (mp:process-name (third udp-server)) "UDP receive server on \"127.0.0.1\" 3320")
+                  (progn (om::om-stop-udp-server (third udp-server))))))
+
+
 ;; ========================================================================
 
 (defun pd-player-wait-pd ()
@@ -84,9 +94,7 @@
                   :while (null *pd-is-open*)
                   :finally (om::om-print "PD is open!" "OM-pd")) ;; Wait PD to be open!
 
-              (loop :for udp-server :in *running-udp-servers*
-                  :do (if (equal (mp:process-name (third udp-server)) "UDP receive server on \"127.0.0.1\" 3320")
-                  (progn (om::om-stop-udp-server (third udp-server)))))
+              (close-UDP-server)
                   
               (sleep 1) ;; better
                   )) ;; Remove the UDP server to check is the PD is open
@@ -97,8 +105,24 @@
 ; ====================================================================================================
 ; ====================================================================================================
 ; ================================= OM-KEYS ==========================================================
+; ================================= OM-ALTERATION IN HOW OM-SHARP WORKS ==============================
 ; ====================================================================================================
-; ====================================================================================================
+
+(defmethod object-default-edition-params ((self score-element))
+  '((:font-size 24)
+    (:staff :g)
+    (:scale :scale-1/2)
+    (:duration-display nil)
+    (:velocity-display :hidden)
+    (:channel-display :hidden)
+    (:midiport-display nil)
+    (:h-stretch 1)
+    (:groups nil)
+    (:group-names t)
+    (:selected-group :all)
+    (:player :osc)))
+
+;; ===================================================================================================
 
 (defmethod editor-key-action ((editor patch-editor) key)
   (declare (special *general-player*))
@@ -118,16 +142,20 @@
         (case key
 
               (#\Space (progn        
+                            ; TODO: Generate a aleatoric number to 
                             (if *PureData-PLAY-STATE*
                                    (progn
                                           (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000) ;; kill PD if it is running (Just one process simmultaneously)
                                           (setf *PureData-PLAY-STATE* nil)
                                           (when player-active (play/stop-boxes selected-boxes)))
                                    (progn
+                                          
+                                          
                                           (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000) ;; before start, kill PD if it is running (Just one process simmultaneously)
                                           (pd-player-open-PD)
                                           (setf *PureData-PLAY-STATE* t)
-                                          (pd-player-wait-pd)
+                                          (pd-player-wait-pd) ;; Wait until PD is open
+                                          
                                           (when player-active (play/stop-boxes selected-boxes))))
                                           (let*  (
                                                  (play-boxes (remove-if-not 'play-box? selected-boxes)))
@@ -135,11 +163,14 @@
                                                                () 
                                                                       (lambda ()
                                                                              (let* (
+                                                                                    
+                                                                                    ;(find-player (print (player  (car play-boxes))))
                                                                                     (objects (mapcar 'get-obj-to-play play-boxes))
                                                                                     (dur-of-objects (mapcar 'object-dur objects))
-                                                                                    (max-dur (ms->sec (+ (list-max dur-of-objects) 5000))))
-                                                                                    (setf *PureData-PLAY-STATE* nil)
+                                                                                    (max-dur (ms->sec (+ (list-max dur-of-objects) 60))))
+                                                                                    (mapcar 'player-info objects)
                                                                                     (sleep max-dur)
+                                                                                    (setf *PureData-PLAY-STATE* nil)
                                                                                     ;(om-print "Closing PD!" "OM-pd")
                                                                                     (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000)))))))
                                           
