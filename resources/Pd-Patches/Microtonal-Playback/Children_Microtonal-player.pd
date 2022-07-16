@@ -22,7 +22,7 @@
 #X obj 20 325 cyclone/round 1;
 #X obj 20 270 t f f;
 #X obj 230 328 s channel;
-#X msg 272 503 4;
+#X msg 272 503 61;
 #X obj 379 301 cyclone/prepend set;
 #X obj 20 428 t f b;
 #X obj 406 236 s channel;
@@ -41,6 +41,26 @@
 #X obj 419 595 Children_note-off;
 #X obj 20 691 else/sfont~, f 43;
 #X obj 91 599 else/format open %s;
+#N canvas 373 219 492 281 open 0;
+#X obj 70 61 openpanel;
+#X obj 70 31 bng 18 250 50 0 empty empty empty 17 7 0 10 -228856 -1
+-1;
+#X text 96 33 load a different soundfont;
+#X obj 70 215 outlet;
+#X text 215 78 If no extension is given \, it searches for both ".sf2"
+and ".sf3" extensions. This is the same for the argument., f 38;
+#X msg 89 86 symbol sf/Theremin;
+#X text 137 178 no symbol opens dialog window;
+#X msg 70 117 open \$1;
+#X msg 84 147 open sf/Waves.sf2;
+#X msg 102 179 open;
+#X connect 0 0 7 0;
+#X connect 1 0 0 0;
+#X connect 5 0 7 0;
+#X connect 7 0 3 0;
+#X connect 8 0 3 0;
+#X connect 9 0 3 0;
+#X restore 415 638 pd open;
 #X connect 0 0 17 0;
 #X connect 1 0 16 0;
 #X connect 2 0 3 0;
@@ -83,3 +103,4 @@
 #X connect 39 0 8 0;
 #X connect 39 1 9 0;
 #X connect 40 0 39 0;
+#X connect 41 0 39 0;

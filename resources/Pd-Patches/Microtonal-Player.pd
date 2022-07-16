@@ -45,8 +45,9 @@
 #X msg 200 269 1 \, 0 250 1;
 #X obj 60 269 del 250;
 #X obj 21 444 Microtonal-Playback/Children_Microtonal-player;
-#X obj 127 160 print;
+#X obj 432 197 print;
 #X msg 22 100 listen 3000 127.0.0.1;
+#X msg 104 381 6100 120 5000 1;
 #X connect 1 0 2 0;
 #X connect 2 0 6 0;
 #X connect 2 0 25 0;
@@ -72,3 +73,4 @@
 #X connect 24 0 16 0;
 #X connect 24 1 17 1;
 #X connect 26 0 1 0;
+#X connect 27 0 24 0;
