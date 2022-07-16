@@ -10,7 +10,6 @@
                      #+Windows(file (om::string-to-list filename "\\"))
                      #-Windows(file (om::string-to-list filename "/"))
                                                                                                                        )
-
   (car (last file))))   
 
 ;=====================================================================  
