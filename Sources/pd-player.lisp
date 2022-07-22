@@ -142,24 +142,24 @@
         (case key
 
               (#\Space (progn        
-                            ; TODO: Generate a aleatoric number to 
+                            ; TODO: Generate a aleatoric number to, when the player is active, and stop, 
                             (if *PureData-PLAY-STATE*
                                    (progn
-                                          (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000) ;; kill PD if it is running (Just one process simmultaneously)
+                                          (if (get-pref-value :externals :PureData-Player) (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000)) ;; kill PD if it is running (Just one process simmultaneously)
                                           (setf *PureData-PLAY-STATE* nil)
                                           (when player-active (play/stop-boxes selected-boxes)))
                                    (progn
                                           
                                           
                                           (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000) ;; before start, kill PD if it is running (Just one process simmultaneously)
-                                          (pd-player-open-PD)
+                                          (if (get-pref-value :externals :PureData-Player) (pd-player-open-PD))
                                           (setf *PureData-PLAY-STATE* t)
-                                          (pd-player-wait-pd) ;; Wait until PD is open
-                                          
+                                          (if (get-pref-value :externals :PureData-Player)  (pd-player-wait-pd)) ;; Wait until PD is open
                                           (when player-active (play/stop-boxes selected-boxes))))
                                           (let*  (
                                                  (play-boxes (remove-if-not 'play-box? selected-boxes)))
-                                                 (mp:process-run-function "Run PD in Backgroud!"
+                                                 (if (get-pref-value :externals :PureData-Player) 
+                                                        (mp:process-run-function "Run PD in Backgroud!"
                                                                () 
                                                                       (lambda ()
                                                                              (let* (
@@ -172,7 +172,7 @@
                                                                                     (sleep max-dur)
                                                                                     (setf *PureData-PLAY-STATE* nil)
                                                                                     ;(om-print "Closing PD!" "OM-pd")
-                                                                                    (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000)))))))
+                                                                                    (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000))))))))
                                           
 
                      
@@ -359,3 +359,48 @@
 
 
 
+;;; 
+
+(defmethod editor-key-action :around ((self play-editor-mixin) key)
+  (case key
+    (#\Space (progn        
+              ; TODO: Generate a aleatoric number to 
+              ; TODO: Make this a function of the editor's size
+              (if *PureData-PLAY-STATE*
+                     (progn
+                            (if (get-pref-value :externals :PureData-Player) (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000)) ;; kill PD if it is running (Just one process simmultaneously)
+                            (setf *PureData-PLAY-STATE* nil)
+                            (when (and (boundp '*general-player*) *general-player*) (editor-play/pause self)))
+                     (progn
+                            
+                            
+                            (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000) ;; before start, kill PD if it is running (Just one process simmultaneously)
+                            (if (get-pref-value :externals :PureData-Player) (pd-player-open-PD))
+                            (setf *PureData-PLAY-STATE* t)
+                            (if (get-pref-value :externals :PureData-Player)  (pd-player-wait-pd)) ;; Wait until PD is open
+                            (when (and (boundp '*general-player*) *general-player*) (editor-play/pause self))))
+                                   (if (get-pref-value :externals :PureData-Player) 
+                                          (mp:process-run-function "Run PD in Backgroud!"
+                                                 () 
+                                                        (lambda ()
+                                                               (let* (
+                                                                      
+                                                                      (dur-of-objects (object-dur (get-obj-to-play self)))
+                                                                      (max-dur (ms->sec (+ (list-max dur-of-objects) 60))))
+                                                                      (sleep max-dur)
+                                                                      (setf *PureData-PLAY-STATE* nil)
+                                                                      ;(om-print "Closing PD!" "OM-pd")
+                                                                      (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000)))))))
+    
+    (#\p (editor-play/pause self) t)
+    (#\s (editor-stop self) t)
+    (:om-key-esc
+     (when (eq (player-get-object-state (player self) (get-obj-to-play self)) :stop)
+       (if (equal '(0 0) (play-interval self))
+           (call-next-method) ;; if the interval is already reset: check if there is another 'escape' to do
+         (editor-reset-interval self)))
+     (editor-stop self)
+     (call-next-method)
+     t)
+    (otherwise (call-next-method))
+    ))

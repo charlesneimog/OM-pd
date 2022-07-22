@@ -14,7 +14,7 @@
 #X obj 272 536 pack f f f f, f 37;
 #X obj 528 509 r dur;
 #X msg 272 592 note \$1 \$2 \$3;
-#X obj 21 46 unpack f f f f, f 19;
+#X obj 26 46 unpack f f f f, f 19;
 #X obj 50 115 t f f f f;
 #X obj 20 398 cyclone/round 1 @nearest 0;
 #X obj 90 165 cyclone/round 1;
@@ -22,12 +22,12 @@
 #X obj 20 325 cyclone/round 1;
 #X obj 20 270 t f f;
 #X obj 230 328 s channel;
-#X msg 272 503 61;
+#X msg 272 503 67;
 #X obj 379 301 cyclone/prepend set;
 #X obj 20 428 t f b;
 #X obj 406 236 s channel;
-#X obj 406 181 bng 20 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
+#X obj 406 181 bng 20 250 50 0 empty empty empty 17 7 0 10 #fcfcfc
+#000000 #000000;
 #X obj 406 209 cyclone/counter 1 16;
 #X obj 91 566 r soundfont;
 #X obj 20 493 pack f f;
@@ -43,8 +43,8 @@
 #X obj 91 599 else/format open %s;
 #N canvas 373 219 492 281 open 0;
 #X obj 70 61 openpanel;
-#X obj 70 31 bng 18 250 50 0 empty empty empty 17 7 0 10 -228856 -1
--1;
+#X obj 70 31 bng 18 250 50 0 empty empty empty 17 7 0 10 #dcdcdc #000000
+#000000;
 #X text 96 33 load a different soundfont;
 #X obj 70 215 outlet;
 #X text 215 78 If no extension is given \, it searches for both ".sf2"
@@ -75,7 +75,7 @@ and ".sf3" extensions. This is the same for the argument., f 38;
 #X connect 14 0 39 0;
 #X connect 15 0 1 0;
 #X connect 15 1 4 0;
-#X connect 15 3 11 0;
+#X connect 15 2 11 0;
 #X connect 16 1 2 0;
 #X connect 16 2 18 0;
 #X connect 16 3 19 0;
