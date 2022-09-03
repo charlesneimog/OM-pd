@@ -24,25 +24,20 @@
 #X connect 1 0 2 0;
 #X restore 334 564 pd loaded;
 #X obj 15 7 r 1_loaded;
-#X obj 15 40 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
+#X obj 15 40 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc #000000
+#000000;
 #X obj 117 79 else/format set open %s;
 #X obj 439 207 t b b b;
 #X obj 15 59 t b b;
 #X obj 112 641 dac~, f 15;
 #X msg 29 357 vis \$1;
-#X obj 29 317 tgl 25 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
-1;
-#X msg 117 110 open C:/Users/Neimog/Documents/OM#/temp-files/78683.wav
-, f 117;
-#X obj 571 184 r om-loadbang;
-#X obj 671 184 r gain;
-#X obj 726 183 r outfile;
+#X obj 29 317 tgl 25 0 empty empty empty 17 7 0 10 #fcfcfc #000000
+#000000 0 1;
 #X obj 220 232 spigot;
-#X obj 221 270 s 1_loaded;
+#X obj 220 260 s 1_loaded;
 #X obj 259 172 r loop;
-#X obj 342 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
-1;
+#X obj 342 205 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000
+#000000 0 1;
 #N canvas 519 56 806 556 OSC 0;
 #X obj 15 466 s msg;
 #X obj 266 468 s msg;
@@ -82,11 +77,12 @@
 #X obj 320 659 writesf~ 2;
 #X msg 416 566 start;
 #X msg 466 567 stop;
+#X msg 117 110, f 117;
 #X connect 0 0 7 0;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 2 0 3 1;
-#X connect 2 1 26 0;
+#X connect 2 1 22 0;
 #X connect 3 0 4 0;
 #X connect 3 1 4 1;
 #X connect 3 2 4 2;
@@ -105,9 +101,9 @@
 #X connect 3 15 4 15;
 #X connect 3 16 13 0;
 #X connect 4 0 19 0;
-#X connect 4 0 31 0;
+#X connect 4 0 27 0;
 #X connect 4 1 19 1;
-#X connect 4 1 31 1;
+#X connect 4 1 27 1;
 #X connect 5 0 3 0;
 #X connect 6 0 16 0;
 #X connect 8 0 17 0;
@@ -115,17 +111,17 @@
 #X connect 11 0 4 0;
 #X connect 14 0 15 0;
 #X connect 15 0 18 0;
-#X connect 16 0 22 0;
+#X connect 16 0 30 0;
 #X connect 17 0 0 0;
 #X connect 17 1 10 0;
 #X connect 17 2 12 0;
 #X connect 18 0 1 0;
-#X connect 18 1 22 0;
+#X connect 18 1 30 0;
 #X connect 20 0 3 0;
 #X connect 21 0 20 0;
-#X connect 22 0 2 0;
-#X connect 26 0 27 0;
-#X connect 28 0 26 1;
-#X connect 29 0 26 1;
-#X connect 32 0 31 0;
-#X connect 33 0 31 0;
+#X connect 22 0 23 0;
+#X connect 24 0 22 1;
+#X connect 25 0 22 1;
+#X connect 28 0 27 0;
+#X connect 29 0 27 0;
+#X connect 30 0 2 0;

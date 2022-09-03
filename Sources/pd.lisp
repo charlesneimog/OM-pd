@@ -30,19 +30,53 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 
 (defclass! pure-data ()
     (
-        (pd :initform (ompd-list->string-fun (list (namestring (get-pref-value :externals :PureData)))) :initarg :pd :accessor pd)
+        #+Windows(pd :initform (ompd-list->string-fun (list (namestring (get-pref-value :externals :PureData)))) :initarg :pd :accessor pd)
+        #-Windows(pd :initform (namestring (get-pref-value :externals :PureData)) :initarg :pd :accessor pd)
         (pd-path :initform nil :initarg :pd-path :accessor pd-path)
         (command-line :initform nil :initarg :command-line :accessor command-line)
         (pd-outfile :initform nil :initarg :pd-outfile :accessor pd-outfile)))
 
 ; ================================================================
 
-
-(defmethod! pd~ ((patch pure-data) &key (sound-in nil) (sound-out nil) (var nil) (gui nil) (offline nil) (verbose nil))
+(defmethod! pd-run ((patch list))
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
 :icon 'pd
 :doc ""
+
+(if (not (find-library "OM-CKN"))
+    (progn  
+                   (if (om-y-or-n-dialog "Pd-multithreading require the library OM-CKN, want to download it?")
+                       (hqn-web:browse "https://github.com/charlesneimog/OM-CKN/releases/"))
+                   (abort-eval)))
+(progn (oa::om-command-line (print (om::command-line (car (om::list! patch))))) (pd-outfile (car (om::list! patch)))))
+        
+        
+
+
+; ================================================================
+
+(defmethod! pd-kill ()
+:initvals '(nil)
+:indoc ' ("Use PD patches inside OM-Sharp")
+:icon 'pd
+:doc "It kill ALL processes of PureData."
+
+(if (om-y-or-n-dialog "This will kill ALL processes of PureData, are you sure?")
+    #+Windows (oa::om-command-line "taskkill /IM pd.exe /F")
+    #+Linux (oa::om-command-line "killall pd")
+    #+Mac (oa::om-command-line "killall pd")
+    ))
+
+; ================================================================
+(defmethod! pd~ ((patch string) &key (sound-in nil) (sound-out nil) (var nil) (gui nil) (offline nil) (verbose nil) (thread nil))
+(pd~ (pd-define-patch patch :sound-in sound-in :sound-out sound-out :var var :gui gui :offline offline :verbose verbose :thread thread)))
+
+; ================================================================
+(defmethod! pd~ ((patch pure-data) &key (sound-in nil) (sound-out nil) (var nil) (gui nil) (offline nil) (verbose nil) (thread nil))
+:indoc ' ("Use PD patches inside OM-Sharp")
+:icon 'pd
+:doc "This object is responsible for formatting a command line that will start and run PureData, what it always returns is the sound-out."
 
 
 (let* (
@@ -66,17 +100,17 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                       (null (om::tmpfile "sound.wav")))))
 
 
-(if (and gui offline)
+(if thread
     (mp:process-run-function "Open PureData"
                  () 
                   (lambda () (ckn-pd~ sound-in sound-out patch var gui offline verbose)))
-    (ckn-pd~ sound-in sound-out patch var gui offline verbose))))
+    (ckn-pd~ sound-in sound-out patch var gui offline verbose thread))))
  
 
 
 ; ============================== TO RUN PATCHES ==================
 
-(defun ckn-pd~ (sound-in sound-out patch var gui offline verbose)
+(defun ckn-pd~ (sound-in sound-out patch var gui offline verbose thread)
 
 ;; Check if outfile have some space;;;
 (let* (
@@ -127,7 +161,17 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
     (pd-verbose (if verbose " " " -noverbose -d 0 "))
     (gui (if gui " " " -nogui"))
     (offline (if offline " -batch " ""))
-    (pd-patch (replace-all (namestring (pd-path patch)) "\\" "/"))
+    (pd-patch (let* (
+                        (path (probe-file (pd-path patch)))
+                        (length-of-path (length (om::string-to-list (namestring (pd-path patch)) " "))))
+                        (if (> length-of-path 1)
+                            (let* (
+                                (message (om::om-print (format nil "The pathname in the ~d spaces in it, coping to temp-files." (pd-path patch)) "OM-pd"))
+                                (copy-to-tmp-files (om::tmpfile "temp-patch.pd")))
+                                (om-print "There is Spaces in your PD patch pathname" "WARNING")
+                                (system::copy-file path copy-to-tmp-files)
+                                (replace-all (namestring copy-to-tmp-files) "\\" "/"))
+                          (replace-all (namestring path) "\\" "/"))))
     (command-line (om::string+ pd-executable  " -audiooutdev 0 " gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
     (oa::om-command-line command-line verbose)
     (if gui (om::om-print "Finish!" "PD"))
@@ -140,14 +184,11 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 
 ; ============================== TO RUN PATCHES IN WSL (JUST FOR WINDOWS) ==================
 
-; ================================================================
-
-
 (defmethod! wsl-pd~ ((patch pure-data) &key (sound-in nil) (sound-out nil) (var nil) (gui t) (offline nil) (verbose nil))
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp running it on WSL.")
 :icon 'pd
-:doc ""
+:doc "This object is responsible for formatting a command line that will start and run PureData in WSL (just for Windows), what it always returns is the sound-out."
 
 
 (let* (
@@ -304,7 +345,16 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
     (pd-verbose (if verbose " " " -noverbose -d 0 "))
     (gui (if gui " " " -nogui"))
     (offline (if offline " -batch " ""))
-    (pd-patch (replace-all (namestring (pd-path patch)) "\\" "/"))
+    ; check if there is a space in the patch name
+    (pd-patch (let* (
+                        (path (probe-file (pd-path patch)))
+                        (length-of-path (length (om::string-to-list (namestring (pd-path patch)) " "))))
+                        (if (> length-of-path 1)
+                            (let* (
+                                (message (om::om-print (format nil "The pathname in the ~d spaces in it, coping to temp-files." (pd-path patch)) "OM-pd"))
+                                (copy-to-tmp-files (om::tmpfile "temp-patch.pd")))
+                                (system::copy-file path copy-to-tmp-files)
+                                (replace-all (namestring copy-to-tmp-files) "\\" "/")))))
     (command-line (om::string+ pd-executable  " -audiooutdev 0 " gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_infile fixed_outfile " " )))
 
 (om::make-value 'pure-data (list (list :command-line command-line) (list :pd-outfile outfile)))))
@@ -338,7 +388,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 
 (loop for strings in names-of-patch :collect (pd-define-patch strings)))
 
-
+; ================================================================
 (defmethod! pd-define-patch ((name-of-patch string))
 :initvals '(nil)
 :indoc '("Define the fxp-presets to use in your sound.") 
@@ -458,4 +508,4 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
       :do (if (equal (mp:process-name (third udp-server)) "UDP receive server on \"127.0.0.1\" 1012")
               (progn (om::om-stop-udp-server (third udp-server)))))
 
-t)
+    t)
