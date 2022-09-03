@@ -6,139 +6,179 @@
 ;;; PATCH SELECTION, FILE BY JEAN BRESSON
 ;;;===============================================================
 
-(defclass PD-Patches (OMInterfaceBox)
+;
+(defclass PatchSelectionBox (OMInterfaceBox)
   ((items :accessor items :initarg :items :initform (pd-patches-list))
-   (selection :accessor selection :initarg :selection :initform 0)
-   (output-mode :accessor output-mode :initarg :output-mode :initform :value)
-   (font :accessor font :initarg :font :initform (om-def-font :font1b)))
-  (:documentation "An interface box to graphically select among different pd patches in PD Patches Folder (see externals).
-
-Click with CMD (Mac) or Shift+Ctrl (Windows/Linux) to change the selected patch."
+   (selection :accessor selection :initarg :selection :initform nil)
+   (multiple-selection :accessor multiple-selection :initarg :multiple-selection :initform nil)
+   (cell-height :accessor cell-height :initarg :cell-height :initform 12)
+   (cell-font :accessor cell-font :initarg :cell-font :initform (om-def-font :normal))
+   (output-mode :accessor output-mode :initarg :output-mode :initform :value))
+  (:documentation "An interface box to graphically select among different items in a list.
+Use the optional inputs to set the list of items.
+Click with CMD (Mac) or Shift+Ctrl (Windows/Linux) to change the selected item.
+Returns the selected item, or the selected index depending on how this is set in the box properties.
+Can return a list of selected items if 'multiple selection' is enabled in the box properties."
    ))
 
 
-;; ==========================================
-(defmethod get-documentation ((self OMInterfaceBox)) (class-documentation (class-of self)))
-
-;; ==========================================
 (defmethod special-box-p ((self (eql 'pd-list-patches))) t)
-(defmethod special-item-reference-class ((item (eql 'pd-list-patches))) 'PD-Patches)
+(defmethod special-item-reference-class ((item (eql 'pd-list-patches))) 'PatchSelectionBox)
 
-;; ==========================================
-(defmethod default-size ((self PD-Patches)) (omp 180 30))
-(defmethod maximum-size ((self PD-Patches)) (omp nil 30))
-(defmethod minimum-size ((self PD-Patches)) (omp 180 30))
+(defmethod default-size ((self PatchSelectionBox)) (omp 180 (* (length (items self)) (cell-height self))))
+(defmethod maximum-size ((self PatchSelectionBox))
+  (omp nil (max 60 (+ 16 (* (+ 2 (cell-height self)) (length (items self)))))))
 
-;; ==========================================
-
-(defmethod get-all-keywords ((self PD-Patches))
+(defmethod get-all-keywords ((self PatchSelectionBox))
   '((:items)))
 
-;; ==========================================
 
-(defmethod get-properties-list ((self PD-Patches))
+(defmethod get-properties-list ((self PatchSelectionBox))
   (add-properties (call-next-method)
-                  "Menu selection display"
-                  `((:font "Font" :font font)
-                    (:output-mode "Output mode" (:value :index) ckn-output-mode-accessor)
-                    
+                  "List selection display"
+                  `((:multiple-selection "Multiple selection" :bool multiple-selection)
+                    (:cell-height "Cell size (px)" :number cell-height (2 40))
+                    (:cell-font "Cell font" :font cell-font)
+                    (:output-mode "Output mode" (:value :index) output-mode-accessor)
                     )))
 
 
-;; ==========================================
+(defmethod update-value-from-selection ((self PatchSelectionBox))
+  (set-value self
+             (if (multiple-selection self)
 
-(defmethod ckn-output-mode-accessor ((self pd-patches) &optional value)
+                 (if (equal (output-mode self) :value)
+                     (list (posn-match (items self) (selection self)))
+                   (list (selection self)))
+
+               (if (equal (output-mode self) :value)
+                   (and (selection self)
+                        (list (nth (car (selection self)) (items self))))
+                 (list (car (selection self)))
+                 )
+               )))
+
+(defmethod output-mode-accessor ((self PatchSelectionBox) &optional value)
   (when value
     (setf (output-mode self) value)
     (update-value-from-selection self))
   (output-mode self))
 
-
-;; ==========================================
-
-(defmethod update-value-from-selection ((self PD-Patches))
+(defmethod apply-box-attributes ((self PatchSelectionBox) attributes)
+  (if (null (value self))
+      (progn (om::om-message-dialog "There is no Patch selected!") (om::abort-eval)))
   
-  (set-value self
-             (pd-define-patch (if (equal (output-mode self) :value)
-                 (and (selection self) (list (nth (selection self) (items self))))
-               (list (selection self))))))
-
-
-;; ==========================================
-
-(defmethod apply-box-attributes ((self PD-Patches) attributes)
   
-(if (null (value self))
-      (om::om-message-dialog "There is no Patch selected!"))
-
   (when attributes
     (let ((newlist (getf attributes :items)))
       (unless (equal newlist (items self))
-        (setf (selection self) 0)
-        (set-value self nil))))
+        (setf (selection self) nil)
+        (set-value self nil))
+
+      (let ((min-size (+ 8 (* (+ 2 (cell-height self)) (length newlist)))))
+        (when (< (box-h self) min-size)
+          (omng-resize self (omp (box-w self) min-size))
+          (reset-frame-size (frame self)))
+        )
+      ))
   (call-next-method))
 
 
-;; ==========================================
-
-(defmethod omng-save ((self PD-Patches))
+(defmethod omng-save ((self PatchSelectionBox))
   (append (call-next-method)
           `((:items ,(omng-save (items self)))
             (:selection ,(omng-save (selection self))))))
 
-;; ==========================================
-
-(defmethod load-box-attributes ((box PD-Patches) data)
+(defmethod load-box-attributes ((box PatchSelectionBox) data)
   (setf (items box) (omng-load (find-value-in-kv-list data :items)))
   (setf (selection box) (omng-load (find-value-in-kv-list data :selection)))
   box)
 
-;; ==========================================
 
 (defmethod omNG-make-special-box ((reference (eql 'pd-list-patches)) pos &optional init-args)
-  (let* ((box (make-instance 'PD-Patches
+  (let* ((box (make-instance 'PatchSelectionBox
                              :name "pd-list-patches"
                              :reference 'pd-list-patches)))
     (setf (box-x box) (om-point-x pos)
           (box-y box) (om-point-y pos))
     box))
 
-;; =======================
+(defmethod draw-interface-component ((self PatchSelectionBox) x y w h)
+  (om-with-clip-rect (frame self) x y w h
 
-(defmethod draw-interface-component ((self PD-Patches) x y w h)
+    (let* ((text-h (cadr (multiple-value-list (om-string-size "A" (cell-font self)))))
+           (text-pos (if (>= text-h (cell-height self)) (cell-height self) (* .5 (+ (cell-height self) text-h)))))
 
-(om-draw-rounded-rect x y 22 h :round (box-draw-roundness self) :color (om-def-color :black) :fill t)
+      (om-with-font
+       (cell-font self)
+       (loop for i = 0 then (+ i 1)
+             for yy = y then (+ yy (cell-height self))
+             while (< yy h)
+             while (< i (length (items self)))
+             do
+             (when (member i (selection self))
+               (om-draw-rect 3 (+ yy 2) (- w 6) (cell-height self) :fill t :color (om-def-color :dark-gray)))
+             (om-draw-string 5 (+ yy text-pos) (format nil "~A" (nth i (items self)))
+                             :color (if (member i (selection self)) (om-def-color :white) (om-def-color :black)))
+             ))
+      )
 
-(let* ((font (or (font self) (om-def-font :font1b)))
-          (text-h (cadr (multiple-value-list (om-string-size "A" font))))
-          (text-y-pos (if (>= text-h h) h (* .5 (+ h text-h 1)))))
+    (when (> (* (cell-height self) (length (items self))) h)
+      (om-draw-rect (- w 20) (- h 8) 16 10 :fill t :color (om-def-color :white))
+      (om-draw-string (- w 18) (- h 2) "...")
+      )
+    ))
 
-      (om-with-font font (om-draw-string (+ x 30) text-y-pos (format nil "~A" (nth (selection self) (items self)))))))
 
-;; =======================
+(defmethod interfacebox-action ((self PatchSelectionBox) frame pos)
 
-(defmethod interfacebox-action ((self PD-Patches) frame pos)
-  
   (when (or (om-action-key-down)
             (container-frames-locked (om-view-container frame)))
 
-    (when (< (om-point-x pos) 30)
+    (let* ((y (- (om-point-y pos) 4))
+           (n (floor y (cell-height self))))
+      (when (and (> (om-point-x pos) 5)
+                 (< (om-point-x pos) (- (w frame) 10))
+                 (< n (length (items self))))
 
-      (let ((menu (om-make-menu "list items"
-                                (loop for item in (items self)
-                                      for i from 0
-                                      collect (let ((sel i))
-                                                (om-make-menu-item
-                                                 (format nil "~A" item)
-                                                 #'(lambda ()
-                                                     (store-current-state-for-undo (editor (container self)))
-                                                     (setf (selection self) sel)
-                                                     (update-value-from-selection self)
-                                                     (when (reactive (car (outputs self))) (self-notify self))
-                                                     (om-invalidate-view frame))
-                                                 :selected (= i (selection self))
-                                                 ))))))
+        (store-current-state-for-undo (editor (container self)))
 
-        (om-open-pop-up-menu menu (om-view-container frame))
+        (if (member n (selection self))
 
+            (setf (selection self) (remove n (selection self)))
+
+          (setf (selection self)
+                (if (multiple-selection self)
+                    (sort (cons n (selection self)) '<)
+                  (list n))))
+
+        (update-value-from-selection self)
+
+        (when (reactive (car (outputs self))) (self-notify self))
+        (om-invalidate-view frame)
         ))))
+
+
+(defmethod box-key-action ((box PatchSelectionBox) key)
+  (case key
+    (:om-key-up
+     (when (items box)
+       (let* ((ref-selection (or (car (selection box)) 0))
+              (new-selection (max 0 (1- ref-selection))))
+         (setf (selection box) (list new-selection))
+         (update-value-from-selection box)
+
+         (when (reactive (car (outputs box))) (self-notify box))
+         (om-invalidate-view (frame box)))))
+
+    (:om-key-down
+     (when (items box)
+       (let* ((ref-selection (or (car (selection box)) 0))
+              (new-selection (min (1- (length (items box))) (1+ ref-selection))))
+         (setf (selection box) (list new-selection))
+         (update-value-from-selection box)
+
+         (when (reactive (car (outputs box))) (self-notify box))
+         (om-invalidate-view (frame box)))))
+
+    (otherwise (call-next-method))))
