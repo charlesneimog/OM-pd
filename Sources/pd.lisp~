@@ -5,7 +5,7 @@
 ; ============================================================================================
 
 (defun path2wsl (path)
-"Converts a Windows path to a WSL path!"
+
   (om::string+ "/mnt/c" (replace-all (replace-all (namestring path) "\\" "/") "C:" "")))
 
 ; ========================================== FUNCTIONS ==========================================
@@ -38,11 +38,11 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 
 ; ================================================================
 
-(defmethod! pd-multitask-test ((patch list))
+(defmethod! pd-run ((patch list))
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
 :icon 'pd
-:doc "It tests if a multitask is working, must be used after the pd-mk-line function."
+:doc ""
 
 (if (not (find-library "OM-CKN"))
     (progn  
@@ -70,11 +70,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 
 ; ================================================================
 (defmethod! pd~ ((patch string) &key (sound-in nil) (sound-out nil) (var nil) (gui nil) (offline nil) (verbose nil) (thread nil))
-(pd~ (pd-define-patch patch) :sound-in sound-in :sound-out sound-out :var var :gui gui :offline offline :verbose verbose :thread thread))
-
-
-(defmethod! pd~ ((patch pathname) &key (sound-in nil) (sound-out nil) (var nil) (gui nil) (offline nil) (verbose nil) (thread nil))
-(pd~ (pd-define-patch patch) :sound-in sound-in :sound-out sound-out :var var :gui gui :offline offline :verbose verbose :thread thread))
+(pd~ (pd-define-patch patch :sound-in sound-in :sound-out sound-out :var var :gui gui :offline offline :verbose verbose :thread thread)))
 
 ; ================================================================
 (defmethod! pd~ ((patch pure-data) &key (sound-in nil) (sound-out nil) (var nil) (gui nil) (offline nil) (verbose nil) (thread nil))
@@ -188,7 +184,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 
 ; ============================== TO RUN PATCHES IN WSL (JUST FOR WINDOWS) ==================
 
-(defmethod! wsl-pd~ ((patch pure-data) &key (sound-in nil) (sound-out nil) (var nil) (gui t) (offline nil) (verbose nil) (thread nil))
+(defmethod! wsl-pd~ ((patch pure-data) &key (sound-in nil) (sound-out nil) (var nil) (gui t) (offline nil) (verbose nil))
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp running it on WSL.")
 :icon 'pd
@@ -291,8 +287,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
 :icon 'pd
-:doc "It works like pd~, but do not execute nothing, it just build the line to run pd-multithreading."
-
+:doc ""
 
 (mk-cmd-pd~ sound-in sound-out patch var gui offline verbose))
 
@@ -371,7 +366,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
 :icon 'pd
-:doc "This function return a list of all the patches in the pd-patches folder."
+:doc ""
 (let* (
         (thepath (get-pref-value :externals :Pd-Patches))
         (thefilelist (search-patches "pd")))
@@ -390,10 +385,16 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 
 ; ================================================================
 (defmethod! pd-define-patch ((names-of-patch list))
+
 (loop for strings in names-of-patch :collect (pd-define-patch strings)))
 
 ; ================================================================
 (defmethod! pd-define-patch ((name-of-patch string))
+:initvals '(nil)
+:indoc '("Define the fxp-presets to use in your sound.") 
+:icon 'pd
+:doc "It defines the fxp-presets to use in your sound with the object ckn-VST2. You need be careful because the binaries that I am using not accept very long paths. Then prefer smaller paths."
+
 (let* (
 (action1 (probe-file (merge-pathnames name-of-patch (namestring (get-pref-value :externals :Pd-Patches))))))
 (if 
@@ -407,9 +408,9 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 ; ====================
 (defmethod! pd-define-patch ((name-of-patch pathname))
 :initvals '(nil)
-:indoc '("Search pd patches using the name of the patch") 
+:indoc '("Define the fxp-presets to use in your sound.") 
 :icon 'pd
-:doc "It search the patch using the name of the patch, if the patch is not found it will return a warning."
+:doc "It defines the fxp-presets to use in your sound with the object ckn-VST2. You need be careful because the binaries that I am using not accept very long paths. Then prefer smaller paths."
 
 (let* (
 (action1 (probe-file (merge-pathnames name-of-patch (namestring (get-pref-value :externals :Pd-Patches))))))
@@ -448,8 +449,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
 :icon 'pd
-:doc "This function will run the pd patches in a multithreading way, the number of threads is defined by the user. For example, with 20 tasks, if the user define 4 threads, each thread will run 5 tasks. The function will return a list with the results of each thread."
-
+:doc ""
 
 (if (not (find-library "OM-CKN"))
     (progn  
@@ -467,27 +467,23 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 
 ;; ================================================================
 
-(defmethod! pd-open-patches ((patch pathname))
-(pd-open-patches (pd-define-patch patch)))
-
-;; ================================================================
-
-(defmethod! pd-open-patches ((patch string))
-(pd-open-patches (pd-define-patch patch)))
-
-;; ================================================================
-
 (defmethod! pd-open-patches ((patch pure-data))
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
 :icon 'pd
-:doc "This function will open the patch in the pd application."
+:doc ""
 
 (mp:process-run-function "Open PureData"
                  () 
                   #-windows(lambda () (om-cmd-line (om::string+ (pd patch) " -d 0 -audiooutdev 0 " (replace-all (namestring (pd-path patch)) "\\" "/"))))
                   #+windows(lambda () (om-cmd-line (om::string+ (pd patch) " -d 0 -audiooutdev 0 " (ompd-list->string-fun (list (replace-all (namestring (pd-path patch)) "\\" "/"))))))
+
+
+
               ))
+
+
+
 
 ;; ================================================================
 
@@ -495,7 +491,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 :initvals '(nil)
 :indoc ' ("It needs to be used with finish-process!")
 :icon 'pd
-:doc "This function will wait the process to finish."
+:doc ""
 
 (setf *pd-wait-process* nil)
 

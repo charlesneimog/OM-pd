@@ -66,6 +66,7 @@
                                                                 :var (list (om::x-append 'soundfont (probe-file (om::string+ (om::string+ (get-pref-value :externals :SoundFont-Folder) (get-pref-value :externals :SoundFont))))))
                                                                 :gui nil
                                                                 :offline nil 
+                                                                :thread nil
                                                                 :sound-out (tmpfile "PD.wav") ;; This will not be used just to not need to redefine the pd~ function.
                                                                 :verbose nil)))))))
 
@@ -81,7 +82,7 @@
 
 ;; ========================================================================
 
-(defun pd-player-wait-pd ()
+(defun pd-player-wait-pd () ; this function wait for the pd to be ready to receive the score.
 
        (progn 
               (setf *pd-is-open* nil)
@@ -143,36 +144,39 @@
 
               (#\Space (progn        
                             ; TODO: Generate a aleatoric number to, when the player is active, and stop, 
+                            
+                            (print "Editor Key Action: Space")
                             (if *PureData-PLAY-STATE*
                                    (progn
                                           (if (get-pref-value :externals :PureData-Player) (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000)) ;; kill PD if it is running (Just one process simmultaneously)
                                           (setf *PureData-PLAY-STATE* nil)
                                           (when player-active (play/stop-boxes selected-boxes)))
-                                   (progn
-                                          
-                                          
-                                          (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000) ;; before start, kill PD if it is running (Just one process simmultaneously)
-                                          (if (get-pref-value :externals :PureData-Player) (pd-player-open-PD))
-                                          (setf *PureData-PLAY-STATE* t)
-                                          (if (get-pref-value :externals :PureData-Player)  (pd-player-wait-pd)) ;; Wait until PD is open
-                                          (when player-active (play/stop-boxes selected-boxes))))
-                                          (let*  (
-                                                 (play-boxes (remove-if-not 'play-box? selected-boxes)))
-                                                 (if (get-pref-value :externals :PureData-Player) 
-                                                        (mp:process-run-function "Run PD in Backgroud!"
-                                                               () 
-                                                                      (lambda ()
-                                                                             (let* (
-                                                                                    
-                                                                                    ;(find-player (print (player  (car play-boxes))))
-                                                                                    (objects (mapcar 'get-obj-to-play play-boxes))
-                                                                                    (dur-of-objects (mapcar 'object-dur objects))
-                                                                                    (max-dur (ms->sec (+ (list-max dur-of-objects) 60))))
-                                                                                    (mapcar 'player-info objects)
-                                                                                    (sleep max-dur)
-                                                                                    (setf *PureData-PLAY-STATE* nil)
-                                                                                    ;(om-print "Closing PD!" "OM-pd")
-                                                                                    (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000))))))))
+                                   
+                                   
+                                          (progn  
+                                                 (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000) ;; before start, kill PD if it is running (Just one process simmultaneously)
+                                                 (if (and (get-pref-value :externals :PureData-Player) (not (member (type-of (car (mapcar 'get-obj-to-play (remove-if-not 'play-box? selected-boxes)))) (list 'sound 'data-track)))) (pd-player-open-PD))
+                                                 (setf *PureData-PLAY-STATE* t)
+                                                 (if (and (get-pref-value :externals :PureData-Player) (not (member (type-of (car (mapcar 'get-obj-to-play (remove-if-not 'play-box? selected-boxes)))) (list 'sound 'data-track))))  (pd-player-wait-pd)) ;; Wait until PD is open
+                                                 (when player-active (play/stop-boxes selected-boxes))))
+
+
+                            (when (not (member (type-of (car (mapcar 'get-obj-to-play (remove-if-not 'play-box? selected-boxes)))) (list 'sound 'data-track)))
+                                   (let*  (
+                                          (play-boxes (remove-if-not 'play-box? selected-boxes)))
+                                          (if (get-pref-value :externals :PureData-Player) 
+                                                 (mp:process-run-function "Run PD in Backgroud!"
+                                                        () 
+                                                               (lambda ()
+                                                                      (let* (
+                                                                             (objects (mapcar 'get-obj-to-play play-boxes))
+                                                                             (dur-of-objects (mapcar 'object-dur objects))
+                                                                             (max-dur (ms->sec (+ (list-max dur-of-objects) 60))))
+                                                                             (mapcar 'player-info objects)
+                                                                             (sleep max-dur)
+                                                                             (setf *PureData-PLAY-STATE* nil)
+                                                                             ;(om-print "Closing PD!" "OM-pd")
+                                                                             (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000)))))))))
                                           
 
                      
@@ -332,11 +336,10 @@
               ; ========== OM-PY =======================
               ; ========================================
 
-              (#\z (if   (and  selected-boxes 
-                        (find-library "OM-py") 
-                        (or 
-                              (equal (type-of (car (om::list! selected-boxes))) 'omboxpy) 
-                              (equal (type-of (car (om::list! selected-boxes))) 'OMBox-run-py)))
+              (#\z (if      (and selected-boxes (find-library "OM-py") 
+                                   (or 
+                                   (equal (type-of (car (om::list! selected-boxes))) 'omboxpy) 
+                                   (equal (type-of (car (om::list! selected-boxes))) 'OMBox-run-py)))
 
               ; if omboxpy or OMBox-run-py is selected, then open the VS-code
 
@@ -366,6 +369,7 @@
     (#\Space (progn        
               ; TODO: Generate a aleatoric number to 
               ; TODO: Make this a function of the editor's size
+              (print "play-editor-mixin activated")
               (if *PureData-PLAY-STATE*
                      (progn
                             (if (get-pref-value :externals :PureData-Player) (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000)) ;; kill PD if it is running (Just one process simmultaneously)
@@ -375,22 +379,24 @@
                             
                             
                             (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000) ;; before start, kill PD if it is running (Just one process simmultaneously)
-                            (if (get-pref-value :externals :PureData-Player) (pd-player-open-PD))
+                            (if (and (get-pref-value :externals :PureData-Player) (not (member (type-of (car (mapcar 'get-obj-to-play (om::list! self)))) (list 'sound 'data-track 'null)))) (pd-player-open-PD))
                             (setf *PureData-PLAY-STATE* t)
-                            (if (get-pref-value :externals :PureData-Player)  (pd-player-wait-pd)) ;; Wait until PD is open
+                            (if (and (get-pref-value :externals :PureData-Player) (not (member (type-of (car (mapcar 'get-obj-to-play (om::list! self)))) (list 'sound 'data-track 'null))))  (pd-player-wait-pd)) ;; Wait until PD is open
                             (when (and (boundp '*general-player*) *general-player*) (editor-play/pause self))))
-                                   (if (get-pref-value :externals :PureData-Player) 
-                                          (mp:process-run-function "Run PD in Backgroud!"
-                                                 () 
-                                                        (lambda ()
-                                                               (let* (
-                                                                      
-                                                                      (dur-of-objects (object-dur (get-obj-to-play self)))
-                                                                      (max-dur (ms->sec (+ (list-max dur-of-objects) 60))))
-                                                                      (sleep max-dur)
-                                                                      (setf *PureData-PLAY-STATE* nil)
-                                                                      ;(om-print "Closing PD!" "OM-pd")
-                                                                      (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000)))))))
+              
+
+              (when (not (member (type-of (car (mapcar 'get-obj-to-play (om::list! self)))) (list 'sound 'data-track 'null)))
+                     (if (get-pref-value :externals :PureData-Player) 
+                                   (mp:process-run-function "Run PD in Backgroud!"
+                                          () 
+                                                 (lambda ()
+                                                        (let* (
+                                                               (dur-of-objects (object-dur (get-obj-to-play self)))
+                                                               (max-dur (ms->sec (+ (list-max dur-of-objects) 60))))
+                                                               (sleep max-dur)
+                                                               (setf *PureData-PLAY-STATE* nil)
+                                                               ;(om-print "Closing PD!" "OM-pd")
+                                                               (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000))))))))
     
     (#\p (editor-play/pause self) t)
     (#\s (editor-stop self) t)

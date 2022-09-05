@@ -68,7 +68,6 @@ Can return a list of selected items if 'multiple selection' is enabled in the bo
   (if (null (value self))
       (progn (om::om-message-dialog "There is no Patch selected!") (om::abort-eval)))
   
-  
   (when attributes
     (let ((newlist (getf attributes :items)))
       (unless (equal newlist (items self))
