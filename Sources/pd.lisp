@@ -359,16 +359,16 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
     (pd-verbose (if verbose " " " -noverbose -d 0 "))
     (gui (if gui " " " -nogui"))
     (offline (if offline " -batch " ""))
-    ; check if there is a space in the patch name
     (pd-patch (let* (
                         (path (probe-file (pd-path patch)))
-                        (length-of-path (length (om::string-to-list (namestring (pd-path patch)) " "))))
+                        (length-of-path (length (om::string-to-list (namestring path) " "))))
                         (if (> length-of-path 1)
                             (let* (
                                 (message (om::om-print (format nil "The pathname in the ~d spaces in it, coping to temp-files." (pd-path patch)) "OM-pd"))
                                 (copy-to-tmp-files (om::tmpfile "temp-patch.pd")))
                                 (system::copy-file path copy-to-tmp-files)
-                                (replace-all (namestring copy-to-tmp-files) "\\" "/")))))
+                                (replace-all (namestring copy-to-tmp-files) "\\" "/"))
+                             (namestring path))))
     (command-line (om::string+ pd-executable  " -audiooutdev 0 " gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_infile fixed_outfile " " )))
 
 (om::make-value 'pure-data (list (list :command-line command-line) (list :pd-outfile outfile)))))
