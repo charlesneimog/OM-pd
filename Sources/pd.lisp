@@ -287,6 +287,15 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 
 ; =============================================== To Work with Multithreading
 
+(defmethod! pd-mk-line ((patch pathname) &key (sound-in nil) (sound-out nil)  (var list) (gui t) (offline t) (verbose nil))
+(pd-mk-line (pd-define-patch patch) :sound-in sound-in :sound-out sound-out :var var :gui gui :offline offline :verbose verbose))
+
+; ========================
+
+(defmethod! pd-mk-line ((patch string) &key (sound-in nil) (sound-out nil)  (var list) (gui t) (offline t) (verbose nil))
+(pd-mk-line (pd-define-patch patch) :sound-in sound-in :sound-out sound-out :var var :gui gui :offline offline :verbose verbose))
+
+; ===============================================
 (defmethod! pd-mk-line ((patch pure-data) &key (sound-in nil) (sound-out nil)  (var list) (gui t) (offline t) (verbose nil))
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
@@ -461,7 +470,8 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (let* (
       (patches-by-thread (ckn-loop-multi-prepare patch-list patches-by-thread))
       (thread (lambda (x) (loop :for patches :in x :collect (progn (oa::om-command-line (om::command-line patches)) (pd-outfile patches))))))
-  (om::flat (ckn-multi-1-var thread patches-by-thread))))
+      (ckn-multi-1-var thread patches-by-thread)
+      (mapcar (lambda (out) (pd-outfile out)) patch-list)))
       
 
 
