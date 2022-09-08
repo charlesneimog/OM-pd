@@ -45,9 +45,10 @@
 #X obj 57 426 print;
 #X msg 22 100 listen 3000 127.0.0.1;
 #X obj 289 288 s soundfont;
-#X msg 264 237 C:/Users/Neimog/OneDrive_usp.br/Documents/Music_Files/SoundFonts/Bass_Clarinet.sf2
+#X msg 289 237 C:/Users/Neimog/OneDrive_usp.br/Documents/Music_Files/SoundFonts/Bass_Clarinet.sf2
 ;
 #X obj 60 303 del 50;
+#X text 343 114 This just work for OM#;
 #X connect 1 0 2 0;
 #X connect 2 0 6 0;
 #X connect 3 0 23 0;

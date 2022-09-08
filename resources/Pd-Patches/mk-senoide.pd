@@ -1,7 +1,7 @@
 #N canvas 445 86 1022 607 12;
 #X obj 40 8 r freq;
 #X obj 40 42 osc~ 1000;
-#X obj 39 263 writesf~ 1;
+#X obj 40 263 writesf~ 1;
 #X obj 319 11 r outfile;
 #X obj 319 35 t b b a b;
 #X msg 379 65 \; pd dsp 1;
