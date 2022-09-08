@@ -535,3 +535,28 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
               (progn (om::om-stop-udp-server (third udp-server)))))
 
     t)
+
+(defparameter *this-version* 0.1)
+
+(ignore-errors 
+      (mp:process-run-function "Check for om-pd updates!" () 
+            (lambda ()
+                  (if (and (om::get-pref-value :externals :check-updates) (not (om::loaded? (om::find-library "OM-pd"))))
+                        (let* (
+                              (tmpfile (om::tmpfile "om-pd-version.txt"))
+                              (cmd-command
+                                    #+windows(oa::om-command-line (format nil "curl https://raw.githubusercontent.com/charlesneimog/om-py/master/resources/version.lisp --ssl-no-revoke --output  ~d" (namestring tmpfile)) nil)
+                                    #+mac(oa::om-command-line (format nil "curl https://raw.githubusercontent.com/charlesneimog/om-py/master/resources/version.lisp -L --output ~d" (namestring tmpfile)) nil)
+                                    #+linux (oa::om-command-line (format nil "wget https://raw.githubusercontent.com/charlesneimog/om-py/master/resources/version.lisp --O ~d" (namestring tmpfile)) nil)))
+                              
+                              (if (not (equal cmd-command 0)) 
+                                    (setf *actual-version* 0)                            
+                                    (eval (read-from-string (car (uiop:read-file-lines tmpfile)))))    
+                              
+                              (if (> *actual-version* *this-version*)
+                                    (let* (
+                                    
+                                          (update? (om::om-y-or-n-dialog (format nil "The library om-py has been UPDATED to version ~d. Want to update now?" (write-to-string *actual-version*)))))   
+                                          (if update?
+                                                (hqn-web:browse "https://github.com/charlesneimog/om-py/releases/latest")))
+                                                      (alexandria::delete-file tmpfile)))))))
