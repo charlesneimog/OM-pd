@@ -541,13 +541,13 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (ignore-errors 
       (mp:process-run-function "Check for om-pd updates!" () 
             (lambda ()
-                  (if (and (om::get-pref-value :externals :check-updates) (not (om::loaded? (om::find-library "OM-pd"))))
+                  (if (and t (not (om::loaded? (om::find-library "OM-pd"))))
                         (let* (
                               (tmpfile (om::tmpfile "om-pd-version.txt"))
                               (cmd-command
-                                    #+windows(oa::om-command-line (format nil "curl https://raw.githubusercontent.com/charlesneimog/om-py/master/resources/version.lisp --ssl-no-revoke --output  ~d" (namestring tmpfile)) nil)
-                                    #+mac(oa::om-command-line (format nil "curl https://raw.githubusercontent.com/charlesneimog/om-py/master/resources/version.lisp -L --output ~d" (namestring tmpfile)) nil)
-                                    #+linux (oa::om-command-line (format nil "wget https://raw.githubusercontent.com/charlesneimog/om-py/master/resources/version.lisp --O ~d" (namestring tmpfile)) nil)))
+                                    #+windows(oa::om-command-line (format nil "curl https://raw.githubusercontent.com/charlesneimog/OM-pd/master/resources/om-pd-version.lisp --ssl-no-revoke --output  ~d" (namestring tmpfile)) nil)
+                                    #+mac(oa::om-command-line (format nil "curl https://raw.githubusercontent.com/charlesneimog/OM-pd/master/resources/om-pd-version.lisp -L --output ~d" (namestring tmpfile)) nil)
+                                    #+linux (oa::om-command-line (format nil "wget https://raw.githubusercontent.com/charlesneimog/OM-pd/master/resources/om-pd-version.lisp --O ~d" (namestring tmpfile)) nil)))
                               
                               (if (not (equal cmd-command 0)) 
                                     (setf *actual-version* 0)                            
@@ -556,7 +556,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                               (if (> *actual-version* *this-version*)
                                     (let* (
                                     
-                                          (update? (om::om-y-or-n-dialog (format nil "The library om-py has been UPDATED to version ~d. Want to update now?" (write-to-string *actual-version*)))))   
+                                          (update? (om::om-y-or-n-dialog (format nil "The library OM-pd has been UPDATED to version ~d. Want to update now?" (write-to-string *actual-version*)))))   
                                           (if update?
-                                                (hqn-web:browse "https://github.com/charlesneimog/om-py/releases/latest")))
+                                                (hqn-web:browse "https://github.com/charlesneimog/om-pd/releases/latest")))
                                                       (alexandria::delete-file tmpfile)))))))
