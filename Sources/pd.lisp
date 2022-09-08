@@ -384,7 +384,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                              (namestring path))))
     (command-line (om::string+ pd-executable  " -audiooutdev 0 " gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_infile fixed_outfile " " )))
 
-(om::make-value 'pure-data (list (list :command-line command-line) (list :pd-outfile outfile)))))
+(make-instance 'pure-data :command-line command-line :pd-outfile outfile)))
 
 
 ; ================================================================
@@ -464,24 +464,26 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 ; ================================================================
 
 (defmethod! pd-multithreading ((patch-list list) (patches-by-thread number))
-:initvals '(nil)
-:indoc ' ("Use PD patches inside OM-Sharp")
+:initvals '(nil nil)
+:indoc ' ("Use PD patches inside OM-Sharp" "Number of Threads") 
 :icon '191112345
 :doc "This function will run the pd patches in a multithreading way, the number of threads is defined by the user. For example, with 20 tasks, if the user define 4 threads, each thread will run 5 tasks. The function will return a list with the results of each thread."
 
 
-(if (not (find-library "OM-CKN"))
+(if (and (not (find-library "OM-CKN")) (equal *app-name* "om-sharp"))
     (progn  
                    (if (om-y-or-n-dialog "Pd-multithreading require the library OM-CKN, want to download it?")
                        (hqn-web:browse "https://github.com/charlesneimog/OM-CKN/releases/"))
-                   (abort-eval)))
+                       (if (equal *app-name* "om-sharp")
+                           (abort-eval)
+                           (om-abort)))
     
 
 (let* (
       (patches-by-thread (ckn-loop-multi-prepare patch-list (1+ (round (/ (length patch-list) patches-by-thread)))))
       (thread (lambda (x) (loop :for patches :in x :collect (progn (oa::om-command-line (om::command-line patches)) (pd-outfile patches))))))
       (ckn-multi-1-var thread patches-by-thread)
-      (mapcar (lambda (out) (pd-outfile out)) patch-list)))
+      (mapcar (lambda (out) (pd-outfile out)) patch-list))))
       
 
 

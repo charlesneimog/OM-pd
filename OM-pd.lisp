@@ -15,21 +15,18 @@
             "Sources/utilities"
             "Sources/pd"
             "Sources/om6-pref"
+            "Sources/multithreading"
             ))
 
-
-(om::fill-library '(
-      ("OM-pd" nil nil (pd~ pd-open-patches pd-mk-line pd-patches-list pd-define-patch pd-multithreading) nil)))
-
+(om::fill-library '((nil nil nil (pd~ pd-open-patches pd-mk-line pd-patches-list pd-define-patch pd-multithreading) nil)))
 
 
 (print 
  "
-                                              OM-JI
+                                              OM-pd
 
-      by Charles K. Neimog | charlesneimog.com  
-            collab with reddit users 
-      Universidade Federal de Juiz de Fora (2019-2020)
+      by Charles K. Neimog | charlesneimog.com   
+      University of São Paulo (2021)
 "
 )
                     
