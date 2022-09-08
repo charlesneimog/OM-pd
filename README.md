@@ -1,9 +1,9 @@
 # OM-pd 
+### [Download](https://github.com/charlesneimog/OM-pd/releases/download/0.1/OM-pd.zip)
 
 
 *OM-pd* aims to put the PureData (mainly offline mode) inside OM-Sharp and OpenMusic. It could help to work with process lot of samples using VST plugins, SoundFont, and general audio processing.
 
-## [Download](https://github.com/charlesneimog/OM-pd/releases/download/0.1/OM-pd.zip)
 
 ### Setting of Microtonal Player
 
