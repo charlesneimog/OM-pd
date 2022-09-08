@@ -478,7 +478,6 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                            (abort-eval)
                            (om-abort)))
     
-
 (let* (
       (patches-by-thread (ckn-loop-multi-prepare patch-list (1+ (round (/ (length patch-list) patches-by-thread)))))
       (thread (lambda (x) (loop :for patches :in x :collect (progn (oa::om-command-line (om::command-line patches)) (pd-outfile patches))))))
@@ -535,6 +534,11 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
               (progn (om::om-stop-udp-server (third udp-server)))))
 
     t)
+
+
+
+; ================================================================
+; Check updates
 
 (defparameter *this-version* 0.1)
 
