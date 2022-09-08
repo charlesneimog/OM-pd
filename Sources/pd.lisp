@@ -2,8 +2,34 @@
 
 (setf new-thread nil)
 
-; ============================================================================================
+; ===========================
+(defun ompdGetPdPatches ()
+    (if (equal *app-name* "om-sharp")
+        (get-pref-value :externals :Pd-Patches)
+        *PD-PATCHES* ))
 
+; ===========================
+(defun ompdGetPdExe ()
+    (if (equal *app-name* "om-sharp")
+        #+Windows (ompd-list->string-fun (list (namestring (get-pref-value :externals :PureData))))
+        #-Windows (namestring (get-pref-value :externals :PureData))
+        #+Windows (ompd-list->string-fun (list (namestring *PD-EXE*)))
+        #-Windows (namestring *PD-EXE*) ))
+
+; ================================================================
+
+(defclass! pure-data ()
+    (
+        (pd :initform (ompdGetPdExe) :initarg :pd :accessor pd)
+        (pd-path :initform nil :initarg :pd-path :accessor pd-path)
+        (command-line :initform nil :initarg :command-line :accessor command-line)
+        (pd-outfile :initform nil :initarg :pd-outfile :accessor pd-outfile)))
+
+; ========================================================================  
+
+
+
+; ============================================================================================
 (defun path2wsl (path)
 "Converts a Windows path to a WSL path!"
   (om::string+ "/mnt/c" (replace-all (replace-all (namestring path) "\\" "/") "C:" "")))
@@ -25,23 +51,12 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
             when pos do (write-string replacement out)
             while pos))) 
 
-
-; ================================================================
-
-(defclass! pure-data ()
-    (
-        #+Windows(pd :initform (ompd-list->string-fun (list (namestring (get-pref-value :externals :PureData)))) :initarg :pd :accessor pd)
-        #-Windows(pd :initform (namestring (get-pref-value :externals :PureData)) :initarg :pd :accessor pd)
-        (pd-path :initform nil :initarg :pd-path :accessor pd-path)
-        (command-line :initform nil :initarg :command-line :accessor command-line)
-        (pd-outfile :initform nil :initarg :pd-outfile :accessor pd-outfile)))
-
 ; ================================================================
 
 (defmethod! pd-multitask-test ((patch list))
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
-:icon 'pd
+:icon '191112345
 :doc "It tests if a multitask is working, must be used after the pd-mk-line function."
 
 (if (not (find-library "OM-CKN"))
@@ -51,15 +66,13 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                    (abort-eval)))
 (progn (oa::om-command-line (print (om::command-line (car (om::list! patch))))) (pd-outfile (car (om::list! patch)))))
         
-        
-
-
+    
 ; ================================================================
 
 (defmethod! pd-kill ()
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
-:icon 'pd
+:icon '191112345
 :doc "It kill ALL processes of PureData."
 
 (if (om-y-or-n-dialog "This will kill ALL processes of PureData, are you sure?")
@@ -79,7 +92,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 ; ================================================================
 (defmethod! pd~ ((patch pure-data) &key (sound-in nil) (sound-out nil) (var nil) (gui nil) (offline nil) (verbose nil) (thread nil))
 :indoc ' ("Use PD patches inside OM-Sharp")
-:icon 'pd
+:icon '191112345
 :doc "This object is responsible for formatting a command line that will start and run PureData, what it always returns is the sound-out."
 
 
@@ -191,7 +204,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (defmethod! wsl-pd~ ((patch pure-data) &key (sound-in nil) (sound-out nil) (var nil) (gui t) (offline nil) (verbose nil) (thread nil))
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp running it on WSL.")
-:icon 'pd
+:icon '191112345
 :doc "This object is responsible for formatting a command line that will start and run PureData in WSL (just for Windows), what it always returns is the sound-out."
 
 
@@ -299,7 +312,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (defmethod! pd-mk-line ((patch pure-data) &key (sound-in nil) (sound-out nil)  (var list) (gui t) (offline t) (verbose nil))
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
-:icon 'pd
+:icon '191112345
 :doc "It works like pd~, but do not execute nothing, it just build the line to run pd-multithreading."
 
 
@@ -379,10 +392,10 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (defmethod! pd-patches-list (&key (show-all-patches nil))
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
-:icon 'pd
+:icon '191112345
 :doc "This function return a list of all the patches in the pd-patches folder."
 (let* (
-        (thepath (get-pref-value :externals :Pd-Patches))
+        (thepath (ompdGetPdPatches))
         (thefilelist (search-patches "pd")))
         (remove nil 
             (loop for patches in thefilelist 
@@ -403,39 +416,36 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 
 ; ================================================================
 (defmethod! pd-define-patch ((name-of-patch string))
-(let* (
-(action1 (probe-file (merge-pathnames name-of-patch (namestring (get-pref-value :externals :Pd-Patches))))))
-(if 
-    (equal nil action1) 
-        (let* (
-                (action1 (om-print "PD-Patch not found" "Warning")))
-                (om::make-value 'pure-data (list (list :pd-path " "))))
-    (om::make-value 'pure-data (list (list :pd-path action1))))))
+(pd-define-patch (merge-pathnames name-of-patch (namestring (ompdGetPdPatches)))))
 
 
 ; ====================
 (defmethod! pd-define-patch ((name-of-patch pathname))
 :initvals '(nil)
 :indoc '("Search pd patches using the name of the patch") 
-:icon 'pd
+:icon '191112345
 :doc "It search the patch using the name of the patch, if the patch is not found it will return a warning."
 
 (let* (
-(action1 (probe-file (merge-pathnames name-of-patch (namestring (get-pref-value :externals :Pd-Patches))))))
-(if 
-    (equal nil action1) 
-        (let* (
-                (action1 (om-print "PD-Patch not found" "Warning")))
-                (om::make-value 'pure-data (list (list :pd-path " "))))
-    (om::make-value 'pure-data (list (list :pd-path action1))))))
-
+    (patch-file (probe-file (merge-pathnames name-of-patch (namestring (ompdGetPdPatches))))))
+        (if 
+            (equal nil patch-file) 
+                (progn 
+                    (om-message-dialog "PD-Patch not found")
+                    (if (equal "om-sharp" *app-name*)
+                        (abort-eval)
+                        (om::om-abort)))
+            
+            (if (equal "om-sharp" *app-name*)
+                (om::make-value 'pure-data (list (list :pd-path patch-file)))
+                (make-instance 'pure-data :pd-path patch-file)))))
 
 ; ================================================================
 
 (defun search-patches (extension)
 
       (let* (
-            (thepath (get-pref-value :externals :Pd-Patches))
+            (thepath (ompdGetPdPatches))
             (thefilelist (om-directory thepath 
                                                 :type extension
                                                 :directories t 
@@ -456,7 +466,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (defmethod! pd-multithreading ((patch-list list) (patches-by-thread number))
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
-:icon 'pd
+:icon '191112345
 :doc "This function will run the pd patches in a multithreading way, the number of threads is defined by the user. For example, with 20 tasks, if the user define 4 threads, each thread will run 5 tasks. The function will return a list with the results of each thread."
 
 
@@ -468,7 +478,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
     
 
 (let* (
-      (patches-by-thread (ckn-loop-multi-prepare patch-list patches-by-thread))
+      (patches-by-thread (ckn-loop-multi-prepare patch-list (1+ (round (/ (length patch-list) patches-by-thread)))))
       (thread (lambda (x) (loop :for patches :in x :collect (progn (oa::om-command-line (om::command-line patches)) (pd-outfile patches))))))
       (ckn-multi-1-var thread patches-by-thread)
       (mapcar (lambda (out) (pd-outfile out)) patch-list)))
@@ -490,7 +500,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (defmethod! pd-open-patches ((patch pure-data))
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
-:icon 'pd
+:icon '191112345
 :doc "This function will open the patch in the pd application."
 
 (mp:process-run-function "Open PureData"
@@ -504,7 +514,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (defmethod! pd-wait-process ()
 :initvals '(nil)
 :indoc ' ("It needs to be used with finish-process!")
-:icon 'pd
+:icon '191112345
 :doc "This function will wait the process to finish."
 
 (setf *pd-wait-process* nil)
