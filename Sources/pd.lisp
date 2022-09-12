@@ -189,7 +189,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                                 (system::copy-file path copy-to-tmp-files)
                                 (replace-all (namestring copy-to-tmp-files) "\\" "/"))
                           (replace-all (namestring path) "\\" "/"))))
-    (command-line (om::string+ pd-executable  " -audiooutdev 0 " gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
+    (command-line (om::string+ pd-executable  " -audiobuf 10 -audiooutdev 0 " gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
     (oa::om-command-line command-line verbose)
     (if gui (om::om-print "Finish!" "PD"))
     (mp:process-run-function "Delete Files"
