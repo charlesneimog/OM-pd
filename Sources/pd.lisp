@@ -479,7 +479,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                            (om-abort)))
     
 (let* (
-      (patches-by-thread (ckn-loop-multi-prepare patch-list (1+ (round (/ (length patch-list) patches-by-thread)))))
+      (patches-by-thread (ckn-multithreading-prepare patch-list patches-by-thread))
       (thread (lambda (x) (loop :for patches :in x :collect (progn (oa::om-command-line (om::command-line patches)) (pd-outfile patches))))))
       (ckn-multi-1-var thread patches-by-thread)
       (mapcar (lambda (out) (pd-outfile out)) patch-list))))
@@ -502,7 +502,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 :initvals '(nil)
 :indoc ' ("Use PD patches inside OM-Sharp")
 :icon '191112345
-:doc "This function will open the patch in the pd application."
+:doc "This function will open the patch in the pd app."
 
 (mp:process-run-function "Open PureData"
                  () 
