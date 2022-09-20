@@ -1,7 +1,8 @@
 # OM-pd 
+### [Download](https://github.com/charlesneimog/OM-pd/releases/download/0.1/OM-pd.zip)
+**Cite this repository:** [![DOI](https://zenodo.org/badge/507004160.svg)](https://zenodo.org/badge/latestdoi/507004160)
 
-
-*OM-pd* aims to put the PureData (mainly offline mode) inside OM-Sharp. It could help to work with process lot of samples using VST plugins, SoundFont, and general audio processing.
+*OM-pd* aims to put the PureData (mainly offline mode) inside OM-Sharp and OpenMusic. It could help to work with process lot of samples using VST plugins, SoundFont, and general audio processing.
 
 
 ### Setting of Microtonal Player
@@ -9,7 +10,6 @@
 You need to install Cyclone and Else by Alexandre Porres. Open PureData, go to `Help->Find External` then search for `else` and `cyclone`. Click in `INSTALL`.
 
 ![image](https://user-images.githubusercontent.com/31707161/176052309-d1548486-408c-420a-9e40-f3f398f03cd4.png)
-
 
 <img src="https://github.com/charlesneimog/OM-pd/blob/master/resources/Using%20Deken.png" width="512"/>
 
