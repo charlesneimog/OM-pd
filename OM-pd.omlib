@@ -1,7 +1,7 @@
 (:om-lib
 
 (:version 0.1)
-(:doc "This library will provide ways to easily work with python inside OM-Sharp. Some examples of Partial Tracking, Binaural work, Artificial Intelligence, etc.")
+(:doc "OM-pd aims to put the PureData (mainly offline mode) inside OM-Sharp and OpenMusic. It could help to work with processing a lot of samples using VST plugins, SoundFont, and general audio processing.")
 (:author "Charles K. Neimog")
 
  ;;; SOURCE FILES TO LOAD
