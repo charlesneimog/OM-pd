@@ -1,7 +1,6 @@
 ;;            OM-pd
 ;;
 ;;      by Charles K. Neimog 
-;; collab with reddit users 
 ;; University of São Paulo (2021-2022)
            
 
@@ -26,7 +25,7 @@
                                               OM-pd
 
       by Charles K. Neimog | charlesneimog.com   
-      University of São Paulo (2021)
+      University of São Paulo (2021-2)
 "
 )
                     
