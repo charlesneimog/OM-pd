@@ -1,8 +1,8 @@
-;;            OM-JI
+;;            OM-pd
 ;;
 ;;      by Charles K. Neimog 
 ;; collab with reddit users 
-;; University of São Paulo (2020-2021)
+;; University of São Paulo (2021-2022)
            
 
 (in-package :om)
