@@ -120,7 +120,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (if thread
     (mp:process-run-function "Open PureData"
                  () 
-                  (lambda () (ckn-pd~ sound-in sound-out patch var gui offline verbose)))
+                  (lambda () (ckn-pd~ sound-in sound-out patch var gui offline verbose thread)))
     (ckn-pd~ sound-in sound-out patch var gui offline verbose thread))))
  
 
@@ -189,7 +189,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                                 (system::copy-file path copy-to-tmp-files)
                                 (replace-all (namestring copy-to-tmp-files) "\\" "/"))
                           (replace-all (namestring path) "\\" "/"))))
-    (command-line (om::string+ pd-executable  " -audiobuf 10 -audiooutdev 0 " gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
+    (command-line (om::string+ pd-executable  " -audiooutdev 0 " gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
     (oa::om-command-line command-line verbose)
     (if gui (om::om-print "Finish!" "PD"))
     (mp:process-run-function "Delete Files"
@@ -288,7 +288,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
     (offline (if offline " -batch " ""))
     (pd-patch (replace-all (namestring (pd-path patch)) "\\" "/"))
     (wsl-path (namestring (merge-pathnames "resources/executables/wsl/wsl.exe"  (mypathname (find-library "OM-pd")))))
-    (command-line (om::string+ wsl-path " pd " " -audiooutdev 0 -blocksize 65536 -r 44100 -audiobuf 20000 -sleepgrain 200 " gui " " pd-verbose " " offline " -open " "'" (path2wsl pd-patch) "'" " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
+    (command-line (om::string+ wsl-path " pd " " -audiooutdev 0 -blocksize 65536 -r 44100 " gui " " pd-verbose " " offline " -open " "'" (path2wsl pd-patch) "'" " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
     (print command-line)
     (oa::om-command-line command-line verbose)
     (if gui (om::om-print "Finish!" "PD"))

@@ -4,12 +4,12 @@
  (:doc "")
  (:info
   (:created "2022/06/28 10:51:18")
-  (:modified "2022/09/08 0:37:34")
+  (:modified "2022/10/11 8:52:24")
   (:by "om-sharp")
   (:version 1.07))
- (:window (:size (1055 711)) (:position (607 38)))
+ (:window (:size (1055 680)) (:position (607 38)))
  (:grid nil)
- (:lock nil)
+ (:lock t)
  (:boxes
   (:box
    (:type :abstraction)
@@ -22,91 +22,17 @@
       (:modified nil)
       (:by *app-name*)
       (:version 0))
-     (:window (:size (674 578)) (:position (224 224)))
+     (:window (:size (692 650)) (:position (224 224)))
      (:grid nil)
      (:lock t)
      (:boxes
-      (:box
-       (:type :io)
-       (:reference
-        (:in (:type omin) (:index 1) (:name "pd-patch") (:doc "")))
-       (:group-id nil)
-       (:name "pd-patch")
-       (:x 94)
-       (:y 292)
-       (:w 79)
-       (:h 42)
-       (:color
-        (:color-or-nil
-         (:color (:color 1.0S0 1.0S0 1.0S0 0.0S0))
-         (:t-or-nil t)))
-       (:border 0)
-       (:roundness 0)
-       (:text-font nil)
-       (:align :center)
-       (:icon :top)
-       (:reactive nil)
-       (:inputs)
-       (:outputs (:output (:name "out") (:reactive nil)))
-       (:id 0))
-      (:box
-       (:type :io)
-       (:reference
-        (:out (:type omout) (:name "output 1") (:index 1) (:doc "")))
-       (:group-id nil)
-       (:name "output 1")
-       (:x 210)
-       (:y 435)
-       (:w 79)
-       (:h 42)
-       (:color
-        (:color-or-nil
-         (:color (:color 1.0S0 1.0S0 1.0S0 0.0S0))
-         (:t-or-nil t)))
-       (:border 0)
-       (:roundness 0)
-       (:text-font nil)
-       (:align :center)
-       (:icon :top)
-       (:reactive nil)
-       (:inputs
-        (:input
-         (:type :standard)
-         (:name "out-value")
-         (:value nil)
-         (:reactive nil)))
-       (:outputs)
-       (:id 1))
-      (:box
-       (:type :io)
-       (:reference
-        (:in (:type omin) (:index 2) (:name "freq") (:doc "")))
-       (:group-id nil)
-       (:name "freq")
-       (:x 375)
-       (:y 29)
-       (:w 72)
-       (:h 42)
-       (:color
-        (:color-or-nil
-         (:color (:color 1.0S0 1.0S0 1.0S0 0.0S0))
-         (:t-or-nil t)))
-       (:border 0)
-       (:roundness 0)
-       (:text-font nil)
-       (:align :center)
-       (:icon :top)
-       (:reactive nil)
-       (:inputs)
-       (:outputs (:output (:name "out") (:reactive nil)))
-       (:id 2))
       (:box
        (:type :function)
        (:reference tmpfile)
        (:group-id nil)
        (:name "tmpfile")
-       (:x 179)
-       (:y 249)
+       (:x 224)
+       (:y 298)
        (:w 88)
        (:h 31)
        (:color nil)
@@ -125,7 +51,7 @@
          (:value "")
          (:reactive nil)))
        (:outputs (:output (:name "out") (:reactive nil)))
-       (:id 3))
+       (:id 0))
       (:box
        (:type :function)
        (:reference x-append)
@@ -156,7 +82,7 @@
          (:value nil)
          (:reactive nil)))
        (:outputs (:output (:name "out") (:reactive nil)))
-       (:id 4))
+       (:id 1))
       (:box
        (:type :value)
        (:reference symbol)
@@ -179,7 +105,7 @@
        (:inputs)
        (:outputs (:output (:name "value") (:reactive nil)))
        (:value freq)
-       (:id 5))
+       (:id 2))
       (:box
        (:type :function)
        (:reference list)
@@ -205,15 +131,15 @@
          (:value 1)
          (:reactive nil)))
        (:outputs (:output (:name "out") (:reactive nil)))
-       (:id 6))
+       (:id 3))
       (:box
        (:library "OM-pd")
        (:type :function)
        (:reference pd-mk-line)
        (:group-id nil)
        (:name "pd-mk-line")
-       (:x 176)
-       (:y 385)
+       (:x 211)
+       (:y 397)
        (:w 159)
        (:h 31)
        (:color nil)
@@ -247,15 +173,15 @@
          (:value nil)
          (:reactive nil)))
        (:outputs (:output (:name "out") (:reactive nil)))
-       (:id 7))
+       (:id 4))
       (:box
        (:type :function)
        (:reference string+)
        (:group-id nil)
        (:name "string+")
-       (:x 127)
-       (:y 200)
-       (:w 100)
+       (:x 159)
+       (:y 227)
+       (:w 123)
        (:h 31)
        (:color nil)
        (:border nil)
@@ -283,14 +209,14 @@
          (:value nil)
          (:reactive nil)))
        (:outputs (:output (:name "out") (:reactive nil)))
-       (:id 8))
+       (:id 5))
       (:box
        (:type :value)
        (:reference (:symbol "SIMPLE-TEXT-STRING" "LISPWORKS"))
        (:group-id nil)
        (:name "value box")
-       (:x 104)
-       (:y 110)
+       (:x 88)
+       (:y 179)
        (:w 68)
        (:h 31)
        (:color
@@ -306,14 +232,14 @@
        (:inputs)
        (:outputs (:output (:name "value") (:reactive nil)))
        (:value "note_")
-       (:id 9))
+       (:id 6))
       (:box
        (:type :function)
        (:reference write-to-string)
        (:group-id nil)
        (:name "write-to-string")
-       (:x 175)
-       (:y 116)
+       (:x 143)
+       (:y 148)
        (:w 145)
        (:h 31)
        (:color nil)
@@ -332,14 +258,14 @@
          (:value nil)
          (:reactive nil)))
        (:outputs (:output (:name "out") (:reactive nil)))
-       (:id 10))
+       (:id 7))
       (:box
        (:type :value)
        (:reference (:symbol "SIMPLE-TEXT-STRING" "LISPWORKS"))
        (:group-id nil)
        (:name "value box")
-       (:x 188)
-       (:y 164)
+       (:x 220)
+       (:y 184)
        (:w 61)
        (:h 31)
        (:color
@@ -355,14 +281,14 @@
        (:inputs)
        (:outputs (:output (:name "value") (:reactive nil)))
        (:value ".wav")
-       (:id 11))
+       (:id 8))
       (:box
        (:type :value)
        (:reference symbol)
        (:group-id nil)
        (:name "value box")
-       (:x 283)
-       (:y 350)
+       (:x 318)
+       (:y 362)
        (:w 39)
        (:h 31)
        (:color
@@ -378,28 +304,181 @@
        (:inputs)
        (:outputs (:output (:name "value") (:reactive nil)))
        (:value t)
-       (:id 12)))
+       (:id 9))
+      (:box
+       (:type :io)
+       (:reference
+        (:in (:type omin) (:index 1) (:name "pd-patch") (:doc "")))
+       (:group-id nil)
+       (:name "pd-patch")
+       (:x 137)
+       (:y 297)
+       (:w 79)
+       (:h 42)
+       (:color
+        (:color-or-nil
+         (:color (:color 1.0S0 1.0S0 1.0S0 0.0S0))
+         (:t-or-nil t)))
+       (:border 0)
+       (:roundness 0)
+       (:text-font nil)
+       (:align :center)
+       (:icon :top)
+       (:reactive nil)
+       (:inputs)
+       (:outputs (:output (:name "out") (:reactive nil)))
+       (:id 10))
+      (:box
+       (:type :io)
+       (:reference
+        (:out (:type omout) (:name "output 1") (:index 1) (:doc "")))
+       (:group-id nil)
+       (:name "output 1")
+       (:x 245)
+       (:y 447)
+       (:w 79)
+       (:h 42)
+       (:color
+        (:color-or-nil
+         (:color (:color 1.0S0 1.0S0 1.0S0 0.0S0))
+         (:t-or-nil t)))
+       (:border 0)
+       (:roundness 0)
+       (:text-font nil)
+       (:align :center)
+       (:icon :top)
+       (:reactive nil)
+       (:inputs
+        (:input
+         (:type :standard)
+         (:name "out-value")
+         (:value nil)
+         (:reactive nil)))
+       (:outputs)
+       (:id 11))
+      (:box
+       (:type :io)
+       (:reference
+        (:in (:type omin) (:index 2) (:name "freq") (:doc "")))
+       (:group-id nil)
+       (:name "freq")
+       (:x 375)
+       (:y 29)
+       (:w 72)
+       (:h 42)
+       (:color
+        (:color-or-nil
+         (:color (:color 1.0S0 1.0S0 1.0S0 0.0S0))
+         (:t-or-nil t)))
+       (:border 0)
+       (:roundness 0)
+       (:text-font nil)
+       (:align :center)
+       (:icon :top)
+       (:reactive nil)
+       (:inputs)
+       (:outputs (:output (:name "out") (:reactive nil)))
+       (:id 12))
+      (:box
+       (:type :function)
+       (:reference om-random)
+       (:group-id nil)
+       (:name "om-random")
+       (:x 164)
+       (:y 116)
+       (:w 102)
+       (:h 31)
+       (:color nil)
+       (:border nil)
+       (:roundness nil)
+       (:text-font nil)
+       (:align nil)
+       (:icon :left)
+       (:lock nil)
+       (:lambda nil)
+       (:reactive nil)
+       (:inputs
+        (:input
+         (:type :standard)
+         (:name "LOW")
+         (:value 0)
+         (:reactive nil))
+        (:input
+         (:type :standard)
+         (:name "HIGH")
+         (:value 1)
+         (:reactive nil)))
+       (:outputs (:output (:name "out") (:reactive nil)))
+       (:id 13))
+      (:box
+       (:type :value)
+       (:reference fixnum)
+       (:group-id nil)
+       (:name "value box")
+       (:x 168)
+       (:y 81)
+       (:w 47)
+       (:h 31)
+       (:color
+        (:color-or-nil
+         (:color (:color 1.0S0 1.0S0 1.0S0 1.0))
+         (:t-or-nil t)))
+       (:border nil)
+       (:roundness nil)
+       (:text-font nil)
+       (:align nil)
+       (:lock nil)
+       (:reactive nil)
+       (:inputs)
+       (:outputs (:output (:name "value") (:reactive nil)))
+       (:value 1000)
+       (:id 14))
+      (:box
+       (:type :value)
+       (:reference fixnum)
+       (:group-id nil)
+       (:name "value box")
+       (:x 214)
+       (:y 81)
+       (:w 47)
+       (:h 31)
+       (:color
+        (:color-or-nil
+         (:color (:color 1.0S0 1.0S0 1.0S0 1.0))
+         (:t-or-nil t)))
+       (:border nil)
+       (:roundness nil)
+       (:text-font nil)
+       (:align nil)
+       (:lock nil)
+       (:reactive nil)
+       (:inputs)
+       (:outputs (:output (:name "value") (:reactive nil)))
+       (:value 9999)
+       (:id 15)))
      (:connections
-      (:connection (:from (:box 0 :out 0)) (:to (:box 7 :in 0)))
-      (:connection (:from (:box 2 :out 0)) (:to (:box 10 :in 0)))
-      (:connection (:from (:box 2 :out 0)) (:to (:box 4 :in 1)))
-      (:connection (:from (:box 3 :out 0)) (:to (:box 7 :in 1)))
-      (:connection (:from (:box 4 :out 0)) (:to (:box 6 :in 0)))
-      (:connection (:from (:box 5 :out 0)) (:to (:box 4 :in 0)))
-      (:connection (:from (:box 6 :out 0)) (:to (:box 7 :in 2)))
-      (:connection (:from (:box 7 :out 0)) (:to (:box 1 :in 0)))
-      (:connection (:from (:box 8 :out 0)) (:to (:box 3 :in 0)))
-      (:connection (:from (:box 9 :out 0)) (:to (:box 8 :in 0)))
+      (:connection (:from (:box 0 :out 0)) (:to (:box 4 :in 1)))
+      (:connection (:from (:box 1 :out 0)) (:to (:box 3 :in 0)))
+      (:connection (:from (:box 2 :out 0)) (:to (:box 1 :in 0)))
+      (:connection (:from (:box 3 :out 0)) (:to (:box 4 :in 2)))
+      (:connection (:from (:box 4 :out 0)) (:to (:box 11 :in 0)))
+      (:connection (:from (:box 5 :out 0)) (:to (:box 0 :in 0)))
+      (:connection (:from (:box 6 :out 0)) (:to (:box 5 :in 0)))
       (:connection
-       (:from (:box 10 :out 0))
-       (:to (:box 8 :in 1))
+       (:from (:box 7 :out 0))
+       (:to (:box 5 :in 1))
        (:attributes (:color nil :style nil :modif (0 -17/63))))
-      (:connection (:from (:box 11 :out 0)) (:to (:box 8 :in 2)))
-      (:connection (:from (:box 12 :out 0)) (:to (:box 7 :in 3))))))
+      (:connection (:from (:box 8 :out 0)) (:to (:box 5 :in 2)))
+      (:connection (:from (:box 9 :out 0)) (:to (:box 4 :in 3)))
+      (:connection (:from (:box 10 :out 0)) (:to (:box 4 :in 0)))
+      (:connection (:from (:box 12 :out 0)) (:to (:box 1 :in 1)))
+      (:connection (:from (:box 13 :out 0)) (:to (:box 7 :in 0)))
+      (:connection (:from (:box 14 :out 0)) (:to (:box 13 :in 0)))
+      (:connection (:from (:box 15 :out 0)) (:to (:box 13 :in 1))))))
    (:group-id nil)
    (:name "PATCH FIGURE 3")
-   (:x 174)
-   (:y 209)
+   (:x 292)
+   (:y 218)
    (:w 200)
    (:h 60)
    (:color nil)
@@ -430,8 +509,8 @@
    (:reference mapcar)
    (:group-id nil)
    (:name "mapcar")
-   (:x 254)
-   (:y 338)
+   (:x 372)
+   (:y 347)
    (:w 81)
    (:h 31)
    (:color nil)
@@ -461,8 +540,8 @@
    (:reference repeat-n)
    (:group-id nil)
    (:name "repeat-n")
-   (:x 400)
-   (:y 296)
+   (:x 628)
+   (:y 305)
    (:w 101)
    (:h 28)
    (:color
@@ -492,8 +571,8 @@
    (:reference fixnum)
    (:group-id nil)
    (:name "value box")
-   (:x 450)
-   (:y 261)
+   (:x 678)
+   (:y 270)
    (:w 32)
    (:h 31)
    (:color
@@ -508,7 +587,7 @@
    (:reactive nil)
    (:inputs)
    (:outputs (:output (:name "value") (:reactive nil)))
-   (:value 10)
+   (:value 40)
    (:id 3))
   (:box
    (:library "OM-pd")
@@ -516,8 +595,8 @@
    (:reference pd-multithreading)
    (:group-id nil)
    (:name "pd-multithreading")
-   (:x 473)
-   (:y 396)
+   (:x 591)
+   (:y 498)
    (:w 160)
    (:h 31)
    (:color nil)
@@ -526,7 +605,7 @@
    (:text-font nil)
    (:align nil)
    (:icon :left)
-   (:lock :locked)
+   (:lock nil)
    (:lambda nil)
    (:reactive nil)
    (:inputs
@@ -547,8 +626,8 @@
    (:reference fixnum)
    (:group-id nil)
    (:name "value box")
-   (:x 575)
-   (:y 358)
+   (:x 693)
+   (:y 460)
    (:w 32)
    (:h 31)
    (:color
@@ -563,11 +642,11 @@
    (:reactive nil)
    (:inputs)
    (:outputs (:output (:name "value") (:reactive nil)))
-   (:value 3)
+   (:value 8)
    (:id 5))
   (:comment
-   (:x 608)
-   (:y 361)
+   (:x 726)
+   (:y 463)
    (:w 177)
    (:h 28)
    (:fgcolor nil)
@@ -584,8 +663,8 @@
    (:reference pd-kill)
    (:group-id nil)
    (:name "pd-kill")
-   (:x 473)
-   (:y 49)
+   (:x 591)
+   (:y 58)
    (:w 88)
    (:h 31)
    (:color nil)
@@ -606,8 +685,8 @@
    (:reference pd-open-patches)
    (:group-id nil)
    (:name "pd-open-patches")
-   (:x 49)
-   (:y 271)
+   (:x 167)
+   (:y 347)
    (:w 145)
    (:h 31)
    (:color nil)
@@ -628,8 +707,8 @@
    (:outputs (:output (:name "out") (:reactive nil)))
    (:id 8))
   (:comment
-   (:x 219)
-   (:y 44)
+   (:x 337)
+   (:y 53)
    (:w 258)
    (:h 48)
    (:fgcolor nil)
@@ -641,8 +720,8 @@
    (:text "<= pd-list-patches. List patches inside PD-patches folder.")
    (:id 9))
   (:comment
-   (:x 563)
-   (:y 45)
+   (:x 681)
+   (:y 54)
    (:w 258)
    (:h 48)
    (:fgcolor nil)
@@ -659,8 +738,8 @@
    (:reference pd-list-patches)
    (:group-id nil)
    (:name "pd-list-patches")
-   (:x 31)
-   (:y 45)
+   (:x 149)
+   (:y 54)
    (:w 180)
    (:h 136)
    (:color nil)
@@ -691,8 +770,8 @@
    (:reference textbuffer)
    (:group-id nil)
    (:name nil)
-   (:x 178)
-   (:y 449)
+   (:x 296)
+   (:y 536)
    (:w 513)
    (:h 129)
    (:color nil)
@@ -727,26 +806,46 @@
      (:slots
       ((:contents
         (:list
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_476.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_432.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_417.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_488.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_483.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_481.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_394.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_391.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_496.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_457.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_430.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_383.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_439.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_319.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_420.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_463.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_496.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_453.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_410.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_343.wav"))))
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1989.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1177.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_8444.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_5383.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_7200.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1645.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1556.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_2950.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_8671.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_4533.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_5743.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1036.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_4209.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1547.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_7889.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1906.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_3358.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_2900.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_9105.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_7246.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_2860.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_3924.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1749.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1081.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_5814.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_3797.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_8707.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_7466.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_4624.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_4657.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_5774.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_3306.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_4876.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_5643.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_8695.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_3930.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_7797.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1115.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_5622.wav"
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_4310.wav"))))
      (:add-slots ((:input-mode :lines-cols)))))
    (:id 12))
   (:box
@@ -754,8 +853,8 @@
    (:reference om-random)
    (:group-id nil)
    (:name "om-random")
-   (:x 374)
-   (:y 210)
+   (:x 602)
+   (:y 219)
    (:w 102)
    (:h 31)
    (:color nil)
@@ -779,17 +878,404 @@
      (:value 500)
      (:reactive nil)))
    (:outputs (:output (:name "out") (:reactive nil)))
-   (:id 13)))
+   (:id 13))
+  (:box
+   (:type :value)
+   (:reference cons)
+   (:group-id nil)
+   (:name "value box")
+   (:x 164)
+   (:y 389)
+   (:w 498)
+   (:h 89)
+   (:color
+    (:color-or-nil
+     (:color (:color 1.0S0 1.0S0 1.0S0 1.0))
+     (:t-or-nil t)))
+   (:border nil)
+   (:roundness nil)
+   (:text-font nil)
+   (:align nil)
+   (:lock nil)
+   (:reactive nil)
+   (:inputs
+    (:input
+     (:type :optional)
+     (:name "in")
+     (:value nil)
+     (:reactive nil)))
+   (:outputs (:output (:name "value") (:reactive nil)))
+   (:value
+    (:list
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 409  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1989.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1989.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 333  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1177.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1177.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 386  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_8444.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_8444.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 447  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_5383.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_5383.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 400  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_7200.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_7200.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 431  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1645.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1645.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 323  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1556.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1556.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 443  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_2950.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_2950.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 442  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_8671.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_8671.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 334  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_4533.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_4533.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 491  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_5743.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_5743.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 408  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1036.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1036.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 450  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_4209.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_4209.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 422  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1547.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1547.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 411  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_7889.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_7889.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 485  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1906.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1906.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 397  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_3358.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_3358.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 500  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_2900.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_2900.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 448  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_9105.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_9105.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 326  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_7246.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_7246.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 306  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_2860.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_2860.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 375  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_3924.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_3924.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 451  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1749.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1749.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 438  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1081.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1081.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 428  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_5814.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_5814.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 424  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_3797.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_3797.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 384  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_8707.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_8707.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 465  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_7466.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_7466.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 411  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_4624.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_4624.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 425  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_4657.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_4657.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 384  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_5774.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_5774.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 447  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_3306.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_3306.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 306  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_4876.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_4876.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 316  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_5643.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_5643.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 346  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_8695.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_8695.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 484  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_3930.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_3930.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 490  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_7797.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_7797.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 427  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1115.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_1115.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 429  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_5622.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_5622.wav"))))
+     (:object
+      (:class pure-data)
+      (:slots
+       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+        (:pd-path nil)
+        (:command-line
+         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 367  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_4310.wav, \" ")
+        (:pd-outfile
+         "C:/Users/Neimog/Documents/OM#/temp-files/note_4310.wav"))))))
+   (:id 14)))
  (:connections
   (:connection (:from (:box 0 :out 0)) (:to (:box 1 :in 0)))
-  (:connection
-   (:from (:box 1 :out 0))
-   (:to (:box 4 :in 0))
-   (:attributes (:color nil :style nil :modif (0 -215/1072))))
+  (:connection (:from (:box 1 :out 0)) (:to (:box 14 :in 0)))
   (:connection (:from (:box 2 :out 0)) (:to (:box 1 :in 1)))
   (:connection (:from (:box 3 :out 0)) (:to (:box 2 :in 1)))
   (:connection (:from (:box 4 :out 0)) (:to (:box 12 :in 1)))
   (:connection (:from (:box 5 :out 0)) (:to (:box 4 :in 1)))
   (:connection (:from (:box 11 :out 0)) (:to (:box 0 :in 0)))
   (:connection (:from (:box 11 :out 0)) (:to (:box 8 :in 0)))
-  (:connection (:from (:box 13 :out 0)) (:to (:box 2 :in 0)))))
+  (:connection (:from (:box 13 :out 0)) (:to (:box 2 :in 0)))
+  (:connection (:from (:box 14 :out 0)) (:to (:box 4 :in 0)))))
