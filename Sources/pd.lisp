@@ -2,6 +2,10 @@
 
 (setf new-thread nil)
 
+
+(defparameter *Pd-AudioNumber* 0)
+
+
 ; ===========================
 (defun ompdGetPdPatches ()
     (if (equal *app-name* "om-sharp")
@@ -24,10 +28,6 @@
         (pd-path :initform nil :initarg :pd-path :accessor pd-path)
         (command-line :initform nil :initarg :command-line :accessor command-line)
         (pd-outfile :initform nil :initarg :pd-outfile :accessor pd-outfile)))
-
-; ========================================================================  
-
-
 
 ; ============================================================================================
 (defun path2wsl (path)
@@ -80,6 +80,25 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
     #+Linux (oa::om-command-line "killall pd")
     #+Mac (oa::om-command-line "killall pd")
     ))
+
+; ================================================================
+
+(defmethod! pd-mk-audio-name ()
+:icon '191112345
+:doc "Each time that you execute this object it will give a New Audio Name. This is mainly for pd-mk-line."
+
+(setf *Pd-AudioNumber* (+ *Pd-AudioNumber* 1))
+
+(let* (
+      (audio-format (om::get-pref-value :audio :format))
+      (pd-audioOut-format (if (equal *app-name* "om-sharp")
+                              (case audio-format
+                                (:wav ".wav")
+                                (:aiff ".aiff"))
+                              ".wav")))
+
+(om::string+ "Audio_" (format nil "~10,'0D" *Pd-AudioNumber*) pd-audioOut-format)))
+
 
 ; ================================================================
 (defmethod! pd~ ((patch string) &key (sound-in nil) (sound-out nil) (var nil) (gui nil) (offline nil) (verbose nil) (thread nil))

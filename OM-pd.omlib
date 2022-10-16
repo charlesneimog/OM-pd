@@ -14,5 +14,5 @@
       )
 
 (:symbols 
-      (:functions pd~ pd-mk-line pd-multithreading wsl-pd~ pd-open-patches pd-patches-list pd-define-patch)
+      (:functions pd~ pd-mk-line pd-multithreading wsl-pd~ pd-open-patches pd-patches-list pd-define-patch pd-mk-audio-name)
       (:special-items pd-list-patches)))
