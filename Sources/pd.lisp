@@ -191,7 +191,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                           (replace-all (namestring path) "\\" "/"))))
     (command-line (om::string+ pd-executable  " -audiooutdev 0 " gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
     (oa::om-command-line command-line verbose)
-    (if gui (om::om-print "Finish!" "PD"))
+    (if gui (om::om-print "Finish!" "Pd"))
     (mp:process-run-function "Delete Files"
                  () 
                   (lambda () (if sound-in (system::delete-file tmp-infile-name))))
