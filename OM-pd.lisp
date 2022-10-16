@@ -17,7 +17,7 @@
             "Sources/multithreading"
             ))
 
-(om::fill-library '((nil nil nil (pd~ pd-open-patches pd-mk-line pd-patches-list pd-define-patch pd-multithreading) nil)))
+(om::fill-library '((nil nil nil (pd~ pd-mk-line pd-multithreading wsl-pd~ pd-open-patches pd-patches-list pd-define-patch pd-mk-audio-name) nil)))
 
 
 (print 

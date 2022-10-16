@@ -90,12 +90,12 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (setf *Pd-AudioNumber* (+ *Pd-AudioNumber* 1))
 
 (let* (
-      (audio-format (om::get-pref-value :audio :format))
-      (pd-audioOut-format (if (equal *app-name* "om-sharp")
-                              (case audio-format
+      (audio-format (if (equal *app-name* "om-sharp")
+                        (om::get-pref-value :audio :format)
+                    :wav))
+      (pd-audioOut-format (case audio-format
                                 (:wav ".wav")
-                                (:aiff ".aiff"))
-                              ".wav")))
+                                (:aiff ".aiff"))))
 
 (om::string+ "Audio_" (format nil "~10,'0D" *Pd-AudioNumber*) pd-audioOut-format)))
 
