@@ -14,11 +14,29 @@
 
 ; ===========================
 (defun ompdGetPdExe ()
-    (if (equal *app-name* "om-sharp")
-        #+Windows (ompd-list->string-fun (list (namestring (get-pref-value :externals :PureData))))
-        #-Windows (namestring (get-pref-value :externals :PureData))
-        #+Windows (ompd-list->string-fun (list (namestring *PD-EXE*)))
-        #-Windows (namestring *PD-EXE*) ))
+    (let* (
+        (pd-exe 
+                (if (equal *app-name* "om-sharp")
+                    #+Windows (ompd-list->string-fun (list (namestring (get-pref-value :externals :PureData))))
+                    #-Windows (namestring (get-pref-value :externals :PureData))
+                    #+Windows (ompd-list->string-fun (list (namestring *PD-EXE*)))
+                    #-Windows (namestring *PD-EXE*)))
+        
+        ; (verbose (print (type-of pd-exe)))
+        (pd-executable 
+                    (if (not (or (equal (type-of (read-from-string pd-exe)) 'string) (equal (type-of (probe-file (read-from-string pd-exe))) 'pathname)))
+                                (progn 
+                                    (om::om-message-dialog "Error: Pd executable not found, set in Preferences")
+                                    (if (equal *app-name* "om-sharp")
+                                        (om::abort-eval)
+                                        (om::om-abort))))))
+        ; probe for pd executable
+        
+
+        pd-exe))
+            
+        
+
 
 ; ================================================================
 
@@ -58,6 +76,11 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 :indoc ' ("Use PD patches inside OM-Sharp")
 :icon '191112345
 :doc "It tests if a multitask is working, must be used after the pd-mk-line function."
+
+(if (not (equal *app-name* "om-sharp"))
+    (progn 
+        (print "This function is only available in OM-Sharp!")
+        (return-from pd-multitask-test nil)))
 
 (if (not (find-library "OM-CKN"))
     (progn  
@@ -500,7 +523,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (om::require-library "OM-CKN")
     
 (let* (
-      (patches-by-thread (ckn-multithreading-prepare patch-list patches-by-thread))
+      (patches-by-thread (ckn-loop-multi-prepare patch-list patches-by-thread))
       (thread (lambda (x) (loop :for patches :in x :collect (progn (oa::om-command-line (om::command-line patches)) (pd-outfile patches))))))
       (ckn-multi-1-var thread patches-by-thread)
       (mapcar (lambda (out) (pd-outfile out)) patch-list)))
