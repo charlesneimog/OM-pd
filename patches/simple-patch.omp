@@ -1,5 +1,5 @@
-; OM File Header - Saved 2022/09/07 21:52:20
-; (7.0 :patc (om-make-point 38 10) (om-make-point 845 74) (om-make-point 756 822) "" 183 0 "2022/09/07 21:46:27" "2022/09/07 21:52:20")
+; OM File Header - Saved 2022/10/21 09:56:35
+; (7.01 :patc (om-make-point 38 10) (om-make-point 845 74) (om-make-point 756 797) "" 183 0 nil nil)
 ; End File Header
 ; External resources 
 ; (list (list (quote :sound) "#P\"../out-files/out.wav\""))
