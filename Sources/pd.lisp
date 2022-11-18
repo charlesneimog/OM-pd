@@ -523,11 +523,12 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (om::require-library "OM-CKN")
     
 (let* (
-      (patches-by-thread (ckn-loop-multi-prepare patch-list patches-by-thread))
+      (patches-by-thread (ckn-multithreading-prepare patch-list patches-by-thread))
       (thread (lambda (x) (loop :for patches :in x :collect (progn (oa::om-command-line (om::command-line patches)) (pd-outfile patches))))))
       (ckn-multi-1-var thread patches-by-thread)
       (mapcar (lambda (out) (pd-outfile out)) patch-list)))
       
+
 
 
 ;; ================================================================
