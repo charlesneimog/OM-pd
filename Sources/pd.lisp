@@ -16,20 +16,20 @@
 (defun ompdGetPdExe ()
     (let* (
         (pd-exe 
-                (if (equal *app-name* "om-sharp")
-                    #+Windows (ompd-list->string-fun (list (namestring (get-pref-value :externals :PureData))))
-                    #-Windows (namestring (get-pref-value :externals :PureData))
-                    #+Windows (ompd-list->string-fun (list (namestring *PD-EXE*)))
-                    #-Windows (namestring *PD-EXE*)))
+                #+Windows(if (equal *app-name* "om-sharp") (ompd-list->string-fun (list (namestring (get-pref-value :externals :PureData)))) (ompd-list->string-fun (list (namestring *PD-EXE*))))
+                #+mac(if (equal *app-name* "om-sharp") (namestring (get-pref-value :externals :PureData)) (namestring *PD-EXE*))
+                #+linux(if (equal *app-name* "om-sharp") (get-pref-value :externals :PureData) *PD-EXE*)
+                    )
+                       
         
-        ; (verbose (print (type-of pd-exe)))
         (pd-executable 
-                    (if (not (or (equal (type-of (read-from-string pd-exe)) 'string) (equal (type-of (probe-file (read-from-string pd-exe))) 'pathname)))
-                                (progn 
-                                    (om::om-message-dialog "Error: Pd executable not found, set in Preferences")
-                                    (if (equal *app-name* "om-sharp")
-                                        (om::abort-eval)
-                                        (om::om-abort))))))
+                    (if (not (equal (software-type) "Linux"))
+                        (if (not (or (equal (type-of (read-from-string pd-exe)) 'string) (equal (type-of (probe-file (read-from-string pd-exe))) 'pathname)))
+                                    (progn 
+                                        (om::om-message-dialog "Error: Pd executable not found, set in Preferences")
+                                        (if (equal *app-name* "om-sharp")
+                                            (om::abort-eval)
+                                            (om::om-abort)))))))
         ; probe for pd executable
         
 
@@ -127,6 +127,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 (defmethod! pd~ ((patch string) &key (sound-in nil) (sound-out nil) (var nil) (gui nil) (offline nil) (verbose nil) (thread nil))
 (pd~ (pd-define-patch patch) :sound-in sound-in :sound-out sound-out :var var :gui gui :offline offline :verbose verbose :thread thread))
 
+; ================================================================
 
 (defmethod! pd~ ((patch pathname) &key (sound-in nil) (sound-out nil) (var nil) (gui nil) (offline nil) (verbose nil) (thread nil))
 (pd~ (pd-define-patch patch) :sound-in sound-in :sound-out sound-out :var var :gui gui :offline offline :verbose verbose :thread thread))
@@ -139,7 +140,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 
 
 (let* (
-      (sound-in (case (type-of sound-in)
+        (sound-in (case (type-of sound-in)
                       (sound (if (null (om::file-pathname sound-in))
                                  (car (om::list! (save-temp-sounds sound-in (om::string+ "format-" (format nil "~7,'0D" (om-random 0 999999)) "-"))))
                                  (car (om::list! (om::file-pathname sound-in)))))
@@ -149,7 +150,9 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                       (null nil)
 
                       ))
-      (sound-out (case (type-of sound-out)
+        
+    
+        (sound-out (case (type-of sound-out)
                       (sound (if (null (om::file-pathname sound-out))
                                  (car (om::list! (save-temp-sounds sound-out (om::string+ "format-" (format nil "~7,'0D" (om-random 0 999999)) "-"))))
                                  (car (om::list! (om::file-pathname sound-out)))))
@@ -159,6 +162,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                       (null (om::tmpfile "sound.wav")))))
 
 
+(print "ok")
 (if thread
     (mp:process-run-function "Open PureData"
                  () 
@@ -232,6 +236,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                                 (replace-all (namestring copy-to-tmp-files) "\\" "/"))
                           (replace-all (namestring path) "\\" "/"))))
     (command-line (om::string+ pd-executable  " -audiooutdev 0 " gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
+    (print command-line)
     (oa::om-command-line command-line verbose)
     (if gui (om::om-print "Finish!" "Pd"))
     (mp:process-run-function "Delete Files"
@@ -458,7 +463,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 
 ; ================================================================
 (defmethod! pd-define-patch ((name-of-patch string))
-(pd-define-patch (merge-pathnames name-of-patch (namestring (ompdGetPdPatches)))))
+(pd-define-patch (merge-pathnames name-of-patch (ompdGetPdPatches))))
 
 
 ; ====================
@@ -469,7 +474,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
 :doc "It search the patch using the name of the patch, if the patch is not found it will return a warning."
 
 (let* (
-    (patch-file (probe-file (merge-pathnames name-of-patch (namestring (ompdGetPdPatches))))))
+        (patch-file (probe-file (merge-pathnames name-of-patch (namestring (ompdGetPdPatches))))))
         (if 
             (equal nil patch-file) 
                 (progn 
@@ -478,9 +483,9 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                         (abort-eval)
                         (om::om-abort)))
             
-            (if (equal "om-sharp" *app-name*)
-                (om::make-value 'pure-data (list (list :pd-path patch-file)))
-                (make-instance 'pure-data :pd-path patch-file)))))
+                (if (equal "om-sharp" *app-name*)
+                    (om::make-value 'pure-data (list (list :pd-path (print patch-file))))
+                    (make-instance 'pure-data :pd-path patch-file)))))
 
 ; ================================================================
 

@@ -4,12 +4,12 @@
  (:doc "")
  (:info
   (:created "2022/06/28 10:51:18")
-  (:modified "2022/10/16 13:59:49")
+  (:modified "2022/11/21 14:47:47")
   (:by "om-sharp")
   (:version 1.07))
  (:window (:size (1073 752)) (:position (607 38)))
  (:grid nil)
- (:lock t)
+ (:lock nil)
  (:boxes
   (:box
    (:type :abstraction)
@@ -38,7 +38,7 @@
        (:h 42)
        (:color
         (:color-or-nil
-         (:color (:color 1.0S0 1.0S0 1.0S0 0.0S0))
+         (:color (:color 1.0 1.0 1.0 0.0))
          (:t-or-nil t)))
        (:border 0)
        (:roundness 0)
@@ -61,7 +61,7 @@
        (:h 42)
        (:color
         (:color-or-nil
-         (:color (:color 1.0S0 1.0S0 1.0S0 0.0S0))
+         (:color (:color 1.0 1.0 1.0 0.0))
          (:t-or-nil t)))
        (:border 0)
        (:roundness 0)
@@ -89,7 +89,7 @@
        (:h 42)
        (:color
         (:color-or-nil
-         (:color (:color 1.0S0 1.0S0 1.0S0 0.0S0))
+         (:color (:color 1.0 1.0 1.0 0.0))
          (:t-or-nil t)))
        (:border 0)
        (:roundness 0)
@@ -107,8 +107,8 @@
        (:name "tmpfile")
        (:x 210)
        (:y 113)
-       (:w 88)
-       (:h 31)
+       (:w 91)
+       (:h 36)
        (:color nil)
        (:border nil)
        (:roundness nil)
@@ -133,8 +133,8 @@
        (:name "x-append")
        (:x 400)
        (:y 103)
-       (:w 95)
-       (:h 31)
+       (:w 113)
+       (:h 36)
        (:color nil)
        (:border nil)
        (:roundness nil)
@@ -165,10 +165,10 @@
        (:x 400)
        (:y 66)
        (:w 47)
-       (:h 31)
+       (:h 36)
        (:color
         (:color-or-nil
-         (:color (:color 1.0S0 1.0S0 1.0S0 1.0))
+         (:color (:color 1.0 1.0 1.0 1.0))
          (:t-or-nil t)))
        (:border nil)
        (:roundness nil)
@@ -188,7 +188,7 @@
        (:x 408)
        (:y 152)
        (:w 67)
-       (:h 31)
+       (:h 36)
        (:color nil)
        (:border nil)
        (:roundness nil)
@@ -201,7 +201,7 @@
        (:inputs
         (:input
          (:type :optional)
-         (:name "args")
+         (:name "x")
          (:value 1)
          (:reactive nil)))
        (:outputs (:output (:name "out") (:reactive nil)))
@@ -215,7 +215,7 @@
        (:x 197)
        (:y 212)
        (:w 159)
-       (:h 31)
+       (:h 36)
        (:color nil)
        (:border nil)
        (:roundness nil)
@@ -250,16 +250,16 @@
        (:id 7))
       (:box
        (:type :value)
-       (:reference symbol)
+       (:reference boolean)
        (:group-id nil)
        (:name "value box")
        (:x 304)
        (:y 159)
        (:w 39)
-       (:h 31)
+       (:h 36)
        (:color
         (:color-or-nil
-         (:color (:color 1.0S0 1.0S0 1.0S0 1.0))
+         (:color (:color 1.0 1.0 1.0 1.0))
          (:t-or-nil t)))
        (:border nil)
        (:roundness nil)
@@ -272,14 +272,15 @@
        (:value t)
        (:id 8))
       (:box
+       (:library "OM-pd")
        (:type :function)
        (:reference pd-mk-audio-name)
        (:group-id nil)
        (:name "pd-mk-audio-name")
        (:x 178)
        (:y 80)
-       (:w 152)
-       (:h 31)
+       (:w 189)
+       (:h 36)
        (:color nil)
        (:border nil)
        (:roundness nil)
@@ -336,17 +337,17 @@
    (:reference mapcar)
    (:group-id nil)
    (:name "mapcar")
-   (:x 372)
-   (:y 347)
-   (:w 81)
-   (:h 31)
+   (:x 368)
+   (:y 345)
+   (:w 98)
+   (:h 36)
    (:color nil)
    (:border nil)
    (:roundness nil)
    (:text-font nil)
    (:align nil)
    (:icon :left)
-   (:lock :locked)
+   (:lock nil)
    (:lambda nil)
    (:reactive nil)
    (:inputs
@@ -369,7 +370,7 @@
    (:name "repeat-n")
    (:x 628)
    (:y 305)
-   (:w 101)
+   (:w 111)
    (:h 28)
    (:color
     (:color-or-nil (:color (:color 0.82 0.85 0.7 1.0)) (:t-or-nil t)))
@@ -395,17 +396,15 @@
    (:id 2))
   (:box
    (:type :value)
-   (:reference fixnum)
+   (:reference (:list unsigned-byte 8))
    (:group-id nil)
    (:name "value box")
-   (:x 678)
+   (:x 683)
    (:y 270)
-   (:w 32)
-   (:h 31)
+   (:w 38)
+   (:h 36)
    (:color
-    (:color-or-nil
-     (:color (:color 1.0S0 1.0S0 1.0S0 1.0))
-     (:t-or-nil t)))
+    (:color-or-nil (:color (:color 1.0 1.0 1.0 1.0)) (:t-or-nil t)))
    (:border nil)
    (:roundness nil)
    (:text-font nil)
@@ -424,8 +423,8 @@
    (:name "pd-multithreading")
    (:x 591)
    (:y 498)
-   (:w 160)
-   (:h 31)
+   (:w 177)
+   (:h 36)
    (:color nil)
    (:border nil)
    (:roundness nil)
@@ -450,17 +449,15 @@
    (:id 4))
   (:box
    (:type :value)
-   (:reference fixnum)
+   (:reference (:list unsigned-byte 4))
    (:group-id nil)
    (:name "value box")
-   (:x 693)
-   (:y 460)
+   (:x 705)
+   (:y 459)
    (:w 32)
-   (:h 31)
+   (:h 34)
    (:color
-    (:color-or-nil
-     (:color (:color 1.0S0 1.0S0 1.0S0 1.0))
-     (:t-or-nil t)))
+    (:color-or-nil (:color (:color 1.0 1.0 1.0 1.0)) (:t-or-nil t)))
    (:border nil)
    (:roundness nil)
    (:text-font nil)
@@ -472,10 +469,10 @@
    (:value 8)
    (:id 5))
   (:comment
-   (:x 726)
-   (:y 463)
+   (:x 757)
+   (:y 459)
    (:w 177)
-   (:h 28)
+   (:h 26)
    (:fgcolor nil)
    (:bgcolor nil)
    (:border nil)
@@ -493,7 +490,7 @@
    (:x 591)
    (:y 58)
    (:w 88)
-   (:h 31)
+   (:h 34)
    (:color nil)
    (:border nil)
    (:roundness nil)
@@ -512,10 +509,10 @@
    (:reference pd-open-patches)
    (:group-id nil)
    (:name "pd-open-patches")
-   (:x 167)
-   (:y 347)
-   (:w 145)
-   (:h 31)
+   (:x 108)
+   (:y 303)
+   (:w 173)
+   (:h 36)
    (:color nil)
    (:border nil)
    (:roundness nil)
@@ -537,7 +534,7 @@
    (:x 337)
    (:y 53)
    (:w 258)
-   (:h 48)
+   (:h 44)
    (:fgcolor nil)
    (:bgcolor nil)
    (:border nil)
@@ -550,7 +547,7 @@
    (:x 681)
    (:y 54)
    (:w 258)
-   (:h 48)
+   (:h 44)
    (:fgcolor nil)
    (:bgcolor nil)
    (:border nil)
@@ -560,38 +557,6 @@
    (:text
     "Case something go wrong, abort evaluation and then run this object.")
    (:id 10))
-  (:box
-   (:type :interface)
-   (:reference pd-list-patches)
-   (:group-id nil)
-   (:name "pd-list-patches")
-   (:x 149)
-   (:y 54)
-   (:w 180)
-   (:h 136)
-   (:color nil)
-   (:border nil)
-   (:roundness nil)
-   (:multiple-selection nil)
-   (:cell-height 12)
-   (:cell-font (:font (:face "Segoe UI") (:size 8) (:style :plain)))
-   (:output-mode :value)
-   (:inputs)
-   (:outputs (:output (:name "value") (:reactive nil)))
-   (:value "mk-senoide.pd")
-   (:items
-    (:list
-     "spacialization-of-note.pd"
-     "Space.pd"
-     "Record.pd"
-     "mk-senoide.pd"
-     "mk-senoide-mp3.pd"
-     "mk-note.pd"
-     "Microtonal-Player.pd"
-     "metronome.pd"
-     "binaural.pd"))
-   (:selection (:list 3))
-   (:id 11))
   (:box
    (:type :object)
    (:reference textbuffer)
@@ -633,57 +598,57 @@
      (:slots
       ((:contents
         (:list
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1989.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1177.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_8444.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_5383.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_7200.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1645.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1556.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_2950.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_8671.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_4533.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_5743.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1036.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_4209.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1547.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_7889.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1906.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_3358.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_2900.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_9105.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_7246.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_2860.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_3924.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1749.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1081.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_5814.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_3797.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_8707.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_7466.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_4624.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_4657.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_5774.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_3306.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_4876.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_5643.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_8695.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_3930.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_7797.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1115.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_5622.wav"
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_4310.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000252.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000253.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000254.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000255.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000256.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000257.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000258.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000259.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000260.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000261.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000262.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000263.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000264.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000265.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000266.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000267.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000268.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000269.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000270.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000271.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000272.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000273.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000274.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000275.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000276.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000277.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000278.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000279.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000280.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000281.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000282.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000283.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000284.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000285.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000286.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000287.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000288.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000289.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000290.wav"
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000291.wav"))))
      (:add-slots ((:input-mode :lines-cols)))))
-   (:id 12))
+   (:id 11))
   (:box
    (:type :function)
    (:reference om-random)
    (:group-id nil)
    (:name "om-random")
-   (:x 602)
-   (:y 219)
-   (:w 102)
-   (:h 31)
+   (:x 591)
+   (:y 232)
+   (:w 130)
+   (:h 36)
    (:color nil)
    (:border nil)
    (:roundness nil)
@@ -705,20 +670,18 @@
      (:value 500)
      (:reactive nil)))
    (:outputs (:output (:name "out") (:reactive nil)))
-   (:id 13))
+   (:id 12))
   (:box
    (:type :value)
    (:reference cons)
    (:group-id nil)
    (:name "value box")
-   (:x 164)
+   (:x 163)
    (:y 389)
    (:w 498)
    (:h 89)
    (:color
-    (:color-or-nil
-     (:color (:color 1.0S0 1.0S0 1.0S0 1.0))
-     (:t-or-nil t)))
+    (:color-or-nil (:color (:color 1.0 1.0 1.0 1.0)) (:t-or-nil t)))
    (:border nil)
    (:roundness nil)
    (:text-font nil)
@@ -737,372 +700,415 @@
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 409  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1989.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 357  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000252.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1989.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000252.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 333  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1177.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 327  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000253.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1177.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000253.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 386  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_8444.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 305  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000254.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_8444.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000254.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 447  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_5383.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 421  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000255.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_5383.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000255.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 400  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_7200.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 391  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000256.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_7200.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000256.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 431  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1645.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 423  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000257.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1645.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000257.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 323  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1556.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 338  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000258.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1556.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000258.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 443  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_2950.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 418  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000259.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_2950.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000259.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 442  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_8671.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 413  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000260.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_8671.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000260.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 334  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_4533.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 378  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000261.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_4533.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000261.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 491  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_5743.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 303  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000262.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_5743.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000262.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 408  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1036.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 415  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000263.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1036.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000263.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 450  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_4209.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 401  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000264.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_4209.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000264.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 422  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1547.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 479  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000265.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1547.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000265.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 411  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_7889.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 325  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000266.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_7889.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000266.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 485  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1906.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 393  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000267.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1906.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000267.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 397  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_3358.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 353  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000268.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_3358.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000268.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 500  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_2900.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 458  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000269.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_2900.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000269.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 448  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_9105.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 487  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000270.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_9105.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000270.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 326  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_7246.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 496  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000271.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_7246.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000271.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 306  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_2860.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 446  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000272.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_2860.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000272.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 375  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_3924.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 318  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000273.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_3924.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000273.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 451  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1749.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 381  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000274.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1749.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000274.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 438  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1081.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 433  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000275.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1081.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000275.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 428  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_5814.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 322  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000276.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_5814.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000276.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 424  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_3797.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 444  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000277.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_3797.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000277.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 384  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_8707.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 440  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000278.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_8707.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000278.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 465  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_7466.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 482  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000279.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_7466.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000279.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 411  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_4624.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 403  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000280.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_4624.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000280.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 425  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_4657.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 385  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000281.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_4657.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000281.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 384  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_5774.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 356  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000282.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_5774.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000282.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 447  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_3306.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 306  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000283.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_3306.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000283.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 306  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_4876.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 420  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000284.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_4876.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000284.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 316  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_5643.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 314  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000285.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_5643.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000285.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 346  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_8695.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 470  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000286.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_8695.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000286.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 484  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_3930.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 397  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000287.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_3930.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000287.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 490  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_7797.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 440  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000288.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_7797.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000288.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 427  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_1115.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 467  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000289.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_1115.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000289.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 429  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_5622.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 428  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000290.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_5622.wav"))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000290.wav"))))
      (:object
       (:class pure-data)
       (:slots
-       ((:pd "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\"")
+       ((:pd "pd ")
         (:pd-path nil)
         (:command-line
-         "\"C:\\\\Program Files\\\\Pd\\\\bin\\\\pd.exe\" -audiooutdev 0    -noverbose -d 0   -batch  -open C:\\USERS\\NEIMOG\\GIT\\OM-LIBRARIES\\OM-PD\\RESOURCES\\PD-PATCHES\\mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 367  \" -send \"outfile C:/Users/Neimog/Documents/OM#/temp-files/note_4310.wav, \" ")
+         "pd  -audiooutdev 0    -noverbose -d 0   -batch  -open /home/neimog/Documents/OM#/Libraries/OM-pd/resources/Pd-Patches/mk-senoide.pd -send \"om-loadbang bang\" -send \"freq 380  \" -send \"outfile /home/neimog/Documents/OM#/temp-files/Audio_0000000291.wav, \" ")
         (:pd-outfile
-         "C:/Users/Neimog/Documents/OM#/temp-files/note_4310.wav"))))))
+         "/home/neimog/Documents/OM#/temp-files/Audio_0000000291.wav"))))))
+   (:id 13))
+  (:box
+   (:type :interface)
+   (:reference pd-list-patches)
+   (:group-id nil)
+   (:name "pd-list-patches")
+   (:x 56)
+   (:y 46)
+   (:w 180)
+   (:h 106)
+   (:color nil)
+   (:border nil)
+   (:roundness nil)
+   (:multiple-selection nil)
+   (:cell-height 12)
+   (:cell-font
+    (:font (:face "Liberation Sans") (:size 9) (:style :plain)))
+   (:output-mode :value)
+   (:inputs
+    (:input
+     (:type :key)
+     (:name "items")
+     (:value
+      (:list
+       "Microtonal-Player.pd"
+       "Record.pd"
+       "Space.pd"
+       "metronome.pd"
+       "metronome2.pd"
+       "mk-senoide.pd"
+       "spacialization-of-note.pd"))
+     (:reactive nil)))
+   (:outputs (:output (:name "value") (:reactive nil)))
+   (:value "mk-senoide.pd")
+   (:items
+    (:list
+     "Microtonal-Player.pd"
+     "Record.pd"
+     "Space.pd"
+     "metronome.pd"
+     "metronome2.pd"
+     "mk-senoide.pd"
+     "spacialization-of-note.pd"))
+   (:selection (:list 5))
    (:id 14)))
  (:connections
   (:connection (:from (:box 0 :out 0)) (:to (:box 1 :in 0)))
-  (:connection (:from (:box 1 :out 0)) (:to (:box 14 :in 0)))
+  (:connection (:from (:box 1 :out 0)) (:to (:box 13 :in 0)))
   (:connection (:from (:box 2 :out 0)) (:to (:box 1 :in 1)))
   (:connection (:from (:box 3 :out 0)) (:to (:box 2 :in 1)))
-  (:connection (:from (:box 4 :out 0)) (:to (:box 12 :in 1)))
+  (:connection (:from (:box 4 :out 0)) (:to (:box 11 :in 1)))
   (:connection (:from (:box 5 :out 0)) (:to (:box 4 :in 1)))
-  (:connection (:from (:box 11 :out 0)) (:to (:box 0 :in 0)))
-  (:connection (:from (:box 11 :out 0)) (:to (:box 8 :in 0)))
-  (:connection (:from (:box 13 :out 0)) (:to (:box 2 :in 0)))
-  (:connection (:from (:box 14 :out 0)) (:to (:box 4 :in 0)))))
+  (:connection (:from (:box 12 :out 0)) (:to (:box 2 :in 0)))
+  (:connection (:from (:box 13 :out 0)) (:to (:box 4 :in 0)))
+  (:connection (:from (:box 14 :out 0)) (:to (:box 0 :in 0)))))
