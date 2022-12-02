@@ -1,6 +1,6 @@
 (:om-lib
 
-(:version 0.1)
+(:version 0.2)
 (:doc "OM-pd aims to put the PureData (mainly offline mode) inside OM-Sharp and OpenMusic. It could help to work with processing a lot of samples using VST plugins, SoundFont, and general audio processing.")
 (:author "Charles K. Neimog")
 
