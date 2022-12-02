@@ -87,7 +87,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                    (if (om-y-or-n-dialog "Pd-multithreading require the library OM-CKN, want to download it?")
                        (hqn-web:browse "https://github.com/charlesneimog/OM-CKN/releases/"))
                    (abort-eval)))
-(progn (oa::om-command-line (print (om::command-line (car (om::list! patch))))) (pd-outfile (car (om::list! patch)))))
+(progn (oa::om-command-line (om::command-line (car (om::list! patch)))) (pd-outfile (car (om::list! patch)))))
         
     
 ; ================================================================
@@ -161,8 +161,6 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                       (lispworks:simple-text-string (probe-file sound-out))
                       (null (om::tmpfile "sound.wav")))))
 
-
-(print "ok")
 (if thread
     (mp:process-run-function "Open PureData"
                  () 
@@ -236,7 +234,6 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
                                 (replace-all (namestring copy-to-tmp-files) "\\" "/"))
                           (replace-all (namestring path) "\\" "/"))))
     (command-line (om::string+ pd-executable  " -audiooutdev 0 " gui " " pd-verbose " " offline " -open " pd-patch " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
-    (print command-line)
     (oa::om-command-line command-line verbose)
     (if gui (om::om-print "Finish!" "Pd"))
     (mp:process-run-function "Delete Files"
@@ -336,7 +333,7 @@ is replaced with replacement. From http://cl-cookbook.sourceforge.net/strings.ht
     (pd-patch (replace-all (namestring (pd-path patch)) "\\" "/"))
     (wsl-path (namestring (merge-pathnames "resources/executables/wsl/wsl.exe"  (mypathname (find-library "OM-pd")))))
     (command-line (om::string+ wsl-path " pd " " -audiooutdev 0 -blocksize 65536 -r 44100 " gui " " pd-verbose " " offline " -open " "'" (path2wsl pd-patch) "'" " -send \"om-loadbang bang\"" variaveis fixed_outfile fixed_infile " " )))
-    (print command-line)
+    ;(print command-line)
     (oa::om-command-line command-line verbose)
     (if gui (om::om-print "Finish!" "PD"))
     (mp:process-run-function "Delete Files"

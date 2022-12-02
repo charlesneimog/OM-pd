@@ -145,7 +145,7 @@
               (#\Space (progn        
                             ; TODO: Generate a aleatoric number to, when the player is active, and stop, 
                             
-                            (print "Editor Key Action: Space")
+                            ; (print "Editor Key Action: Space")
                             (if *PureData-PLAY-STATE*
                                    (progn
                                           (if (get-pref-value :externals :PureData-Player) (om::osc-send (om::osc-msg "/quit-pd" 0) "127.0.0.1" 3000)) ;; kill PD if it is running (Just one process simmultaneously)

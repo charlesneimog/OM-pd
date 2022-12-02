@@ -63,7 +63,7 @@
 
 ;; =============================================
 
-(defmethod! ckn-loop-multi-prepare ((list list) (how_many_threading number))
+(defmethod! ckn-multithreading-prepare ((list list) (how_many_threading number))
 :initvals ' (nil nil)       
 :indoc ' ("one list" "how much threading for time.")
 :outdoc ' ("result")
