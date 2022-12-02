@@ -9,7 +9,7 @@
 OM-pd aims to put the PureData (mainly offline mode) inside OM-Sharp and OpenMusic. It could help to work with processing a lot of samples using VST plugins, SoundFont, and general audio processing.
 
 
-### Setting of Microtonal Player
+### Setting of Microtonal Player (Just OM#)
 
 You need to install Cyclone and Else by Alexandre Porres. Open PureData, go to `Help->Find External` then search for `else` and `cyclone`. Click in `INSTALL`.
 
