@@ -1,5 +1,5 @@
 # OM-pd 
-## [Download](https://github.com/charlesneimog/OM-pd/releases/download/0.1/OM-pd.zip)
+## [Download](https://github.com/charlesneimog/OM-pd/releases/download/0.2/OM-pd.zip)
 **Cite this repository:** [![DOI](https://zenodo.org/badge/507004160.svg)](https://zenodo.org/badge/latestdoi/507004160)
 
 **How to Install OM-Libraries**: https://cac-t-u-s.github.io/pages/libraries
